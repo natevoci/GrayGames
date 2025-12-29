@@ -40,7 +40,9 @@ const questionDatabase = {
         { question: 'What is red?', answer: 'apple', hint: 'A fruit', illustration: illustrations.apple },
         { question: 'What is yellow?', answer: 'sun', hint: 'In the sky', illustration: illustrations.sun },
         { question: 'What grows in soil?', answer: 'tree', hint: 'Has branches', illustration: illustrations.tree },
-        { question: 'What is blue?', answer: 'sky', hint: 'Above clouds', illustration: illustrations.sun }
+        { question: 'What is blue?', answer: 'sky', hint: 'Above clouds', illustration: illustrations.sun },
+        { question: 'What animal quacks?', answer: 'duck', hint: 'Water bird', illustration: illustrations.duck },
+        { question: 'What is green?', answer: 'leaf', hint: 'On tree', illustration: illustrations.leaf }
     ],
     level2: [
         { question: 'What does a duck say?', answer: 'quack', hint: 'A water sound', illustration: illustrations.duck },
@@ -57,7 +59,10 @@ const questionDatabase = {
         { question: 'What do you ride?', answer: 'bike', hint: 'Has two wheels', illustration: illustrations.bike },
         { question: 'What has four wheels?', answer: 'car', hint: 'For driving', illustration: illustrations.car },
         { question: 'What is a sweet treat?', answer: 'candy', hint: 'You like eating it', illustration: '🍬' },
-        { question: 'What is cold and sweet?', answer: 'ice', hint: 'Freezing cold', illustration: '🧊' }
+        { question: 'What is cold and sweet?', answer: 'ice', hint: 'Freezing cold', illustration: '🧊' },
+        { question: 'What is a round orange fruit?', answer: 'orange', hint: 'Citrus fruit', illustration: illustrations.orange },
+        { question: 'What is white and floats?', answer: 'cloud', hint: 'In sky', illustration: '☁️' },
+        { question: 'What do you draw with?', answer: 'pencil', hint: 'Writing tool', illustration: '✏️' }
     ],
     level3: [
         { question: 'What fruit is purple?', answer: 'grape', hint: 'Bunch of small fruits', illustration: illustrations.grapes },
@@ -74,7 +79,11 @@ const questionDatabase = {
         { question: 'What comes after rain?', answer: 'rainbow', hint: 'Many colors', illustration: '🌈' },
         { question: 'What is a green vegetable?', answer: 'peas', hint: 'Small round ones', illustration: '🟢' },
         { question: 'What animal barks?', answer: 'puppy', hint: 'Young dog', illustration: '🐶' },
-        { question: 'What is warm and bright?', answer: 'fire', hint: 'Burns hot', illustration: '🔥' }
+        { question: 'What is warm and bright?', answer: 'fire', hint: 'Burns hot', illustration: '🔥' },
+        { question: 'What is a big striped animal?', answer: 'zebra', hint: 'African animal', illustration: '🦓' },
+        { question: 'What bounces and is orange?', answer: 'pumpkin', hint: 'Halloween', illustration: '🎃' },
+        { question: 'What has keys and makes music?', answer: 'piano', hint: 'Instrument', illustration: '🎹' },
+        { question: 'What is white and falls in winter?', answer: 'snow', hint: 'Cold', illustration: '❄️' }
     ],
     level4: [
         { question: 'What do you sleep in?', answer: 'bedroom', hint: 'Private room', illustration: '🛏️' },
@@ -91,7 +100,13 @@ const questionDatabase = {
         { question: 'What is round and you bounce it?', answer: 'soccer', hint: 'Sport ball', illustration: '⚽' },
         { question: 'What is sweet and creamy?', answer: 'yogurt', hint: 'Cold treat', illustration: '🥛' },
         { question: 'What is crunchy and orange?', answer: 'carrot', hint: 'Vegetable', illustration: '🥕' },
-        { question: 'What is red and round?', answer: 'tomato', hint: 'Fruit vegetable', illustration: '🍅' }
+        { question: 'What is red and round?', answer: 'tomato', hint: 'Fruit vegetable', illustration: '🍅' },
+        { question: 'What is a big cat with mane?', answer: 'lion', hint: 'Roars loud', illustration: '🦁' },
+        { question: 'What is an animal with hump?', answer: 'camel', hint: 'Desert', illustration: '🐫' },
+        { question: 'What is brown and furry?', answer: 'bear', hint: 'Forest animal', illustration: '🐻' },
+        { question: 'What is a red fruit?', answer: 'cherry', hint: 'Small fruit', illustration: '🍒' },
+        { question: 'What is a yellow fruit?', answer: 'lemon', hint: 'Sour', illustration: '🍋' },
+        { question: 'What is a popular sport?', answer: 'tennis', hint: 'With racket', illustration: '🎾' }
     ],
     level5: [
         { question: 'What is a happy day with gifts?', answer: 'birthday', hint: 'Celebrate day', illustration: '🎂' },
@@ -108,48 +123,14 @@ const questionDatabase = {
         { question: 'What is a red round vegetable?', answer: 'pepper', hint: 'Spicy veggie', illustration: '🌶️' },
         { question: 'What is a tiny sweet treat?', answer: 'cookie', hint: 'You eat it', illustration: '🍪' },
         { question: 'What is a cold sweet treat?', answer: 'popsicle', hint: 'On a stick', illustration: '🍦' },
-        { question: 'What do you wear when cold?', answer: 'sweater', hint: 'Cozy clothing', illustration: '🧶' }
+        { question: 'What do you wear when cold?', answer: 'sweater', hint: 'Cozy clothing', illustration: '🧶' },
+        { question: 'What is a sweet bread?', answer: 'donut', hint: 'Fried pastry', illustration: '🍩' },
+        { question: 'What is a popular treat?', answer: 'chocolate', hint: 'Brown sweet', illustration: '🍫' },
+        { question: 'What is an animal with spots?', answer: 'cheetah', hint: 'Fast cat', illustration: '🐆' },
+        { question: 'What is a big gray animal?', answer: 'rhino', hint: 'Thick skin', illustration: '🦏' },
+        { question: 'What is a long animal?', answer: 'snake', hint: 'Reptile', illustration: '🐍' }
     ]
 };
-
-// Add more questions to reach 150+
-const additionalQuestions = [
-    { level: 1, question: 'What animal quacks?', answer: 'duck', hint: 'Water bird', illustration: illustrations.duck },
-    { level: 1, question: 'What is green?', answer: 'leaf', hint: 'On tree', illustration: illustrations.leaf },
-    { level: 2, question: 'What is a round orange fruit?', answer: 'orange', hint: 'Citrus fruit', illustration: illustrations.orange },
-    { level: 2, question: 'What is white and floats?', answer: 'cloud', hint: 'In sky', illustration: '☁️' },
-    { level: 2, question: 'What do you draw with?', answer: 'pencil', hint: 'Writing tool', illustration: '✏️' },
-    { level: 3, question: 'What is a big striped animal?', answer: 'zebra', hint: 'African animal', illustration: '🦓' },
-    { level: 3, question: 'What bounces and is orange?', answer: 'pumpkin', hint: 'Halloween', illustration: '🎃' },
-    { level: 3, question: 'What has keys and makes music?', answer: 'piano', hint: 'Instrument', illustration: '🎹' },
-    { level: 3, question: 'What is white and falls in winter?', answer: 'snow', hint: 'Cold', illustration: '❄️' },
-    { level: 4, question: 'What is a big cat with mane?', answer: 'lion', hint: 'Roars loud', illustration: '🦁' },
-    { level: 4, question: 'What is an animal with hump?', answer: 'camel', hint: 'Desert', illustration: '🐫' },
-    { level: 4, question: 'What is brown and furry?', answer: 'bear', hint: 'Forest animal', illustration: '🐻' },
-    { level: 4, question: 'What is a red fruit?', answer: 'cherry', hint: 'Small fruit', illustration: '🍒' },
-    { level: 4, question: 'What is a yellow fruit?', answer: 'lemon', hint: 'Sour', illustration: '🍋' },
-    { level: 4, question: 'What is a popular sport?', answer: 'tennis', hint: 'With racket', illustration: '🎾' },
-    { level: 5, question: 'What is a sweet bread?', answer: 'donut', hint: 'Fried pastry', illustration: '🍩' },
-    { level: 5, question: 'What is a popular treat?', answer: 'chocolate', hint: 'Brown sweet', illustration: '🍫' },
-    { level: 5, question: 'What is an animal with spots?', answer: 'cheetah', hint: 'Fast cat', illustration: '🐆' },
-    { level: 5, question: 'What is a big gray animal?', answer: 'rhino', hint: 'Thick skin', illustration: '🦏' },
-    { level: 5, question: 'What is a long animal?', answer: 'snake', hint: 'Reptile', illustration: '🐍' }
-];
-
-// Merge additional questions into database
-Object.keys(additionalQuestions).forEach(i => {
-    const q = additionalQuestions[i];
-    const levelKey = `level${q.level}`;
-    if (!questionDatabase[levelKey]) {
-        questionDatabase[levelKey] = [];
-    }
-    questionDatabase[levelKey].push({
-        question: q.question,
-        answer: q.answer,
-        hint: q.hint,
-        illustration: q.illustration
-    });
-});
 
 // Initialize: Set up event listeners
 document.addEventListener('DOMContentLoaded', () => {
@@ -192,18 +173,45 @@ function loadNextQuestion() {
         !gameState.usedQuestions.includes(`${levelKey}-${i}`)
     );
 
-    // Reset used questions if all are used
+    // If all questions at current level are used, get unused from all levels
     if (availableQuestions.length === 0) {
-        gameState.usedQuestions = [];
-        availableQuestions = questions;
+        // Try to get questions from any level that haven't been used
+        for (let level = 1; level <= 5; level++) {
+            const allLevelQuestions = questionDatabase[`level${level}`];
+            availableQuestions = allLevelQuestions.filter((_, i) => 
+                !gameState.usedQuestions.includes(`level${level}-${i}`)
+            );
+            if (availableQuestions.length > 0) {
+                break;
+            }
+        }
+    }
+
+    // If still no questions available, end game
+    if (availableQuestions.length === 0) {
+        endGame();
+        return;
     }
 
     // Pick random question
     const randomIndex = Math.floor(Math.random() * availableQuestions.length);
     const question = availableQuestions[randomIndex];
 
-    // Track this question
-    const questionId = `${levelKey}-${questions.indexOf(question)}`;
+    // Find which level this question belongs to and track it
+    let questionLevelKey = levelKey;
+    let questionIndex = -1;
+    
+    for (let level = 1; level <= 5; level++) {
+        const levelQuestions = questionDatabase[`level${level}`];
+        questionIndex = levelQuestions.indexOf(question);
+        if (questionIndex !== -1) {
+            questionLevelKey = `level${level}`;
+            break;
+        }
+    }
+
+    // Track this question as used
+    const questionId = `${questionLevelKey}-${questionIndex}`;
     gameState.usedQuestions.push(questionId);
     gameState.currentQuestion = question;
 
