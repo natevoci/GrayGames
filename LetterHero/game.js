@@ -109,6 +109,13 @@ class LetterHero {
         this.fallingLetters = [];
         this.nextLetterId = 0;
 
+        // Cache valid words for current level (populated at level start/change)
+        this.currentLevelWords = [];
+
+        // Track current word being used for spawning letters
+        this.currentWord = null;
+        this.currentWordIndex = 0;
+
         // Game loop
         this.gameLoopId = null;
         this.lastSpawnTime = 0;
@@ -234,6 +241,13 @@ class LetterHero {
         // Set the first new key to I for level 1 (swapped with J)
         this.currentLevelNewKey = 'I';
 
+        // Cache valid words for this level
+        this.currentLevelWords = this.getValidWordsForLevel(this.difficulty);
+
+        // Reset current word tracking
+        this.currentWord = null;
+        this.currentWordIndex = 0;
+
         this.startBtn.disabled = true;
         this.pauseBtn.disabled = false;
 
@@ -267,6 +281,10 @@ class LetterHero {
         this.letterContainer.innerHTML = '';
         this.fallingLetters = [];
         this.nextLetterId = 0;
+
+        // Reset current word tracking
+        this.currentWord = null;
+        this.currentWordIndex = 0;
 
         // Reset buttons
         this.startBtn.disabled = false;
@@ -344,15 +362,28 @@ class LetterHero {
         const activeKeys = this.progressionSequence[Math.min(this.difficulty - 1, this.progressionSequence.length - 1)];
         let randomKey;
 
-        // Get all valid words for this difficulty level dynamically
-        const words = this.getValidWordsForLevel(this.difficulty);
+        // Use cached valid words for this difficulty level
+        const words = this.currentLevelWords;
         const canUseWords = words.length > 0;
         
-        if (canUseWords && Math.random() < 0.7) {
-            // 70% chance to spawn a letter from a word
-            const randomWord = words[Math.floor(Math.random() * words.length)];
-            const randomIndex = Math.floor(Math.random() * randomWord.length);
-            randomKey = randomWord[randomIndex];
+        // Check if we should continue with the current word or pick a new one
+        let useCurrentWord = false;
+        if (this.currentWord && this.currentWordIndex < this.currentWord.length) {
+            // 70% chance to continue with current word if available
+            useCurrentWord = Math.random() < 0.7;
+        }
+        
+        if (useCurrentWord) {
+            // Continue spawning letters from current word
+            randomKey = this.currentWord[this.currentWordIndex];
+            this.currentWordIndex++;
+        } else if (canUseWords && Math.random() < 0.7) {
+            // Pick a new word and start spawning its letters
+            this.currentWord = words[Math.floor(Math.random() * words.length)];
+            console.log('New word for spawning:', this.currentWord);
+            this.currentWordIndex = 0;
+            randomKey = this.currentWord[this.currentWordIndex];
+            this.currentWordIndex++;
         } else if (this.currentLevelNewKey && this.newKeyCount < 2) {
             // Bias towards the newly added key if it hasn't appeared twice yet
             // 60% chance to spawn the new key if we need more presses on it
@@ -477,7 +508,7 @@ class LetterHero {
     checkDifficultyProgression() {
         // Advance to next level after 10 correct presses, up to max level
         // BUT: the newly added key must appear at least 2 times before progressing
-        const correctPressesNeeded = 10;
+        const correctPressesNeeded = 20;
         const maxLevel = this.progressionSequence.length;
         const newDifficulty = Math.min(Math.floor(this.correctPresses / correctPressesNeeded) + 1, maxLevel);
 
@@ -501,6 +532,13 @@ class LetterHero {
             // Reset counters for the new level
             this.newKeyCount = 0;
             this.currentLevelNewKey = addedKey;
+
+            // Cache valid words for the new level
+            this.currentLevelWords = this.getValidWordsForLevel(this.difficulty);
+
+            // Reset current word tracking for new level
+            this.currentWord = null;
+            this.currentWordIndex = 0;
 
             // Pause game and show level-up message
             this.showLevelUpMessage(addedKey);
