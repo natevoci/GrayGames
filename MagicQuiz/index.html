@@ -48,13 +48,17 @@
 
                 <div class="input-area">
                     <p class="hint-label">Type your answer:</p>
-                    <input 
-                        type="text" 
-                        id="answerInput" 
-                        class="answer-input" 
-                        placeholder="Type here..."
-                        autocomplete="off"
-                    >
+                    <div class="answer-with-article">
+                        <span id="articleLabel" class="article-label"></span>
+                        <input 
+                            type="text" 
+                            id="answerInput" 
+                            class="answer-input" 
+                            placeholder="Type here..."
+                            autocomplete="off"
+                        >
+                        <button id="hintBtn" class="btn btn-hint" title="Show hint">💡</button>
+                    </div>
                     <p id="hintText" class="hint-text"></p>
                 </div>
 

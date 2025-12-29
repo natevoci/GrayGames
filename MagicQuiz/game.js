@@ -31,104 +31,102 @@ const illustrations = {
 // Level 3+: More complex answers and longer words
 const questionDatabase = {
     level1: [
-        { question: 'What do you pet?', answer: 'dog', hint: 'A furry friend', illustration: illustrations.dog },
-        { question: 'What says meow?', answer: 'cat', hint: 'A furry pet', illustration: illustrations.cat },
-        { question: 'What swims in water?', answer: 'fish', hint: 'Lives in water', illustration: illustrations.fish },
-        { question: 'What has wings?', answer: 'bird', hint: 'Flies in the sky', illustration: illustrations.bird },
-        { question: 'What gives milk?', answer: 'cow', hint: 'A farm animal', illustration: illustrations.cow },
-        { question: 'What says oink?', answer: 'pig', hint: 'Farm animal', illustration: illustrations.pig },
-        { question: 'What is red?', answer: 'apple', hint: 'A fruit', illustration: illustrations.apple },
-        { question: 'What is yellow?', answer: 'sun', hint: 'In the sky', illustration: illustrations.sun },
-        { question: 'What grows in soil?', answer: 'tree', hint: 'Has branches', illustration: illustrations.tree },
-        { question: 'What is blue?', answer: 'sky', hint: 'Above clouds', illustration: illustrations.sun },
-        { question: 'What animal quacks?', answer: 'duck', hint: 'Water bird', illustration: illustrations.duck },
-        { question: 'What is green?', answer: 'leaf', hint: 'On tree', illustration: illustrations.leaf }
+        { question: 'What do you pet?', answer: 'dog', article: 'a', hint: 'A furry friend', illustration: illustrations.dog },
+        { question: 'What says meow?', answer: 'cat', article: 'a', hint: 'A furry pet', illustration: illustrations.cat },
+        { question: 'What swims in water?', answer: 'fish', article: 'a', hint: 'Lives in water', illustration: illustrations.fish },
+        { question: 'What has wings?', answer: 'bird', article: 'a', hint: 'Flies in the sky', illustration: illustrations.bird },
+        { question: 'What gives milk?', answer: 'cow', article: 'a', hint: 'A farm animal', illustration: illustrations.cow },
+        { question: 'What says oink?', answer: 'pig', article: 'a', hint: 'Farm animal', illustration: illustrations.pig },
+        { question: 'What is red?', answer: 'apple', article: 'an', hint: 'A fruit', illustration: illustrations.apple },
+        { question: 'What is yellow?', answer: 'sun', article: 'the', hint: 'In the sky', illustration: illustrations.sun },
+        { question: 'What grows in soil?', answer: 'tree', article: 'a', hint: 'Has branches', illustration: illustrations.tree },
+        { question: 'What is blue?', answer: 'sky', article: 'the', hint: 'Above clouds', illustration: illustrations.sun },
+        { question: 'What animal quacks?', answer: 'duck', article: 'a', hint: 'Water bird', illustration: illustrations.duck },
+        { question: 'What is green?', answer: 'leaf', article: 'a', hint: 'On tree', illustration: illustrations.leaf }
     ],
     level2: [
-        { question: 'What does a duck say?', answer: 'quack', hint: 'A water sound', illustration: illustrations.duck },
-        { question: 'What hops and croaks?', answer: 'frog', hint: 'Green and jumpy', illustration: illustrations.frog },
-        { question: 'What is round and red?', answer: 'ball', hint: 'You play with it', illustration: illustrations.ball },
-        { question: 'What comes at night?', answer: 'moon', hint: 'Glows in dark', illustration: illustrations.moon },
-        { question: 'What falls from clouds?', answer: 'rain', hint: 'Gets you wet', illustration: illustrations.rain },
-        { question: 'What is green and soft?', answer: 'grass', hint: 'On the ground', illustration: illustrations.grass },
-        { question: 'What is a beautiful orange fruit?', answer: 'orange', hint: 'Citrus fruit', illustration: illustrations.orange },
-        { question: 'What is yellow and sweet?', answer: 'banana', hint: 'A curved fruit', illustration: illustrations.banana },
-        { question: 'What grows from a seed?', answer: 'plant', hint: 'Needs water', illustration: illustrations.flower },
-        { question: 'What has petals and smells nice?', answer: 'flower', hint: 'Grows in garden', illustration: illustrations.flower },
-        { question: 'What has leaves?', answer: 'leaf', hint: 'On branches', illustration: illustrations.leaf },
-        { question: 'What do you ride?', answer: 'bike', hint: 'Has two wheels', illustration: illustrations.bike },
-        { question: 'What has four wheels?', answer: 'car', hint: 'For driving', illustration: illustrations.car },
-        { question: 'What is a sweet treat?', answer: 'candy', hint: 'You like eating it', illustration: '🍬' },
-        { question: 'What is cold and sweet?', answer: 'ice', hint: 'Freezing cold', illustration: '🧊' },
-        { question: 'What is a round orange fruit?', answer: 'orange', hint: 'Citrus fruit', illustration: illustrations.orange },
-        { question: 'What is white and floats?', answer: 'cloud', hint: 'In sky', illustration: '☁️' },
-        { question: 'What do you draw with?', answer: 'pencil', hint: 'Writing tool', illustration: '✏️' }
+        { question: 'What does a duck say?', answer: 'quack', article: '', hint: 'A water sound', illustration: illustrations.duck },
+        { question: 'What hops and croaks?', answer: 'frog', article: 'a', hint: 'Green and jumpy', illustration: illustrations.frog },
+        { question: 'What is round and red?', answer: 'ball', article: 'a', hint: 'You play with it', illustration: illustrations.ball },
+        { question: 'What comes at night?', answer: 'moon', article: 'the', hint: 'Glows in dark', illustration: illustrations.moon },
+        { question: 'What falls from clouds?', answer: 'rain', article: 'the', hint: 'Gets you wet', illustration: illustrations.rain },
+        { question: 'What is green and soft?', answer: 'grass', article: 'the', hint: 'On the ground', illustration: illustrations.grass },
+        { question: 'What is this beautiful fruit?', answer: 'orange', article: 'an', hint: 'Citrus fruit', illustration: illustrations.orange },
+        { question: 'What is yellow and sweet?', answer: 'banana', article: 'a', hint: 'A curved fruit', illustration: illustrations.banana },
+        { question: 'What grows from a seed?', answer: 'plant', article: 'a', hint: 'Needs water', illustration: illustrations.flower },
+        { question: 'What has petals and smells nice?', answer: 'flower', article: 'a', hint: 'Grows in garden', illustration: illustrations.flower },
+        { question: 'What has leaves?', answer: 'tree', article: 'a', hint: 'On branches', illustration: illustrations.leaf },
+        { question: 'What do you ride?', answer: 'bike', article: 'a', hint: 'Has two wheels', illustration: illustrations.bike },
+        { question: 'What has four wheels?', answer: 'car', article: 'a', hint: 'For driving', illustration: illustrations.car },
+        { question: 'What is a sweet treat?', answer: 'lolly', article: 'a', hint: 'You like eating it', illustration: '🍬' },
+        { question: 'What is cold and frozen?', answer: 'ice', article: '', hint: 'You can put it in drinks', illustration: '🧊' },
+        { question: 'What is white and floats?', answer: 'cloud', article: 'a', hint: 'In the sky', illustration: '☁️' },
+        { question: 'What do you draw with?', answer: 'pencil', article: 'a', hint: 'Writing tool you can sharpen', illustration: '✏️' }
     ],
     level3: [
-        { question: 'What fruit is purple?', answer: 'grape', hint: 'Bunch of small fruits', illustration: illustrations.grapes },
-        { question: 'What animal hops high?', answer: 'rabbit', hint: 'Has long ears', illustration: '🐰' },
-        { question: 'What is round and white in the night?', answer: 'moon', hint: 'Stars nearby', illustration: illustrations.moon },
-        { question: 'What do you wear on your foot?', answer: 'shoe', hint: 'Protects feet', illustration: '👟' },
-        { question: 'What do you wear on your hand?', answer: 'glove', hint: 'Keeps warm', illustration: '🧤' },
-        { question: 'What is a transport on rails?', answer: 'train', hint: 'Goes on tracks', illustration: illustrations.train },
-        { question: 'What is a big yellow car?', answer: 'bus', hint: 'Many people ride it', illustration: illustrations.bus },
-        { question: 'What does a piano have?', answer: 'keys', hint: 'You press them', illustration: '🎹' },
-        { question: 'What animal has a trunk?', answer: 'elephant', hint: 'Big grey animal', illustration: '🐘' },
-        { question: 'What big cat roars?', answer: 'lion', hint: 'King of jungle', illustration: '🦁' },
-        { question: 'What is sweet and sticky?', answer: 'honey', hint: 'Bees make it', illustration: '🍯' },
-        { question: 'What comes after rain?', answer: 'rainbow', hint: 'Many colors', illustration: '🌈' },
-        { question: 'What is a green vegetable?', answer: 'peas', hint: 'Small round ones', illustration: '🟢' },
-        { question: 'What animal barks?', answer: 'puppy', hint: 'Young dog', illustration: '🐶' },
-        { question: 'What is warm and bright?', answer: 'fire', hint: 'Burns hot', illustration: '🔥' },
-        { question: 'What is a big striped animal?', answer: 'zebra', hint: 'African animal', illustration: '🦓' },
-        { question: 'What bounces and is orange?', answer: 'pumpkin', hint: 'Halloween', illustration: '🎃' },
-        { question: 'What has keys and makes music?', answer: 'piano', hint: 'Instrument', illustration: '🎹' },
-        { question: 'What is white and falls in winter?', answer: 'snow', hint: 'Cold', illustration: '❄️' }
+        { question: 'What fruit is purple?', answer: 'grape', article: 'a', hint: 'Bunch of small fruits', illustration: illustrations.grapes },
+        { question: 'What animal hops?', answer: 'rabbit', article: 'a', hint: 'Has long ears', illustration: '🐰' },
+        { question: 'What is round and white in the night?', answer: 'moon', article: 'the', hint: 'Stars nearby', illustration: illustrations.moon },
+        { question: 'What do you wear on your foot?', answer: 'shoe', article: 'a', hint: 'Protects feet', illustration: '👟' },
+        { question: 'What do you wear on your hand?', answer: 'glove', article: 'a', hint: 'Keeps warm', illustration: '🧤' },
+        { question: 'What is a transport on rails?', answer: 'train', article: 'a', hint: 'Goes on tracks', illustration: illustrations.train },
+        { question: 'What is a vehicle for many people?', answer: 'bus', article: 'a', hint: 'Many people ride it', illustration: illustrations.bus },
+        { question: 'What does a piano have?', answer: 'keys', article: '', hint: 'You press them', illustration: '🎹' },
+        { question: 'What animal has a trunk?', answer: 'elephant', article: 'an', hint: 'Big grey animal', illustration: '🐘' },
+        { question: 'What big cat roars?', answer: 'lion', article: 'a', hint: 'King of jungle', illustration: '🦁' },
+        { question: 'What is sweet and sticky?', answer: 'honey', article: '', hint: 'Bees make it', illustration: '🍯' },
+        { question: 'What comes after rain?', answer: 'rainbow', article: 'a', hint: 'Many colors', illustration: '🌈' },
+        { question: 'What is a green vegetable?', answer: 'pea', article: 'a', hint: 'Small round ones', illustration: '🟢' },
+        { question: 'What baby animal barks?', answer: 'puppy', article: 'a', hint: 'Young dog', illustration: '🐶' },
+        { question: 'What is warm and bright?', answer: 'fire', article: '', hint: 'Burns hot', illustration: '🔥' },
+        { question: 'What is a big striped animal?', answer: 'zebra', article: 'a', hint: 'African animal', illustration: '🦓' },
+        { question: 'What bounces and is orange?', answer: 'pumpkin', article: 'a', hint: 'Halloween', illustration: '🎃' },
+        { question: 'What has keys and makes music?', answer: 'piano', article: 'a', hint: 'Instrument', illustration: '🎹' },
+        { question: 'What is white and falls in winter?', answer: 'snow', article: 'the', hint: 'Cold', illustration: '❄️' }
     ],
     level4: [
-        { question: 'What do you sleep in?', answer: 'bedroom', hint: 'Private room', illustration: '🛏️' },
-        { question: 'What has wheels and carries you?', answer: 'bicycle', hint: 'Two wheels', illustration: illustrations.bike },
-        { question: 'What is healthy to drink?', answer: 'water', hint: 'No color', illustration: '💧' },
-        { question: 'What do you eat with?', answer: 'spoon', hint: 'Kitchen tool', illustration: '🥄' },
-        { question: 'What is a big animal with spots?', answer: 'leopard', hint: 'Wild cat', illustration: '🐆' },
-        { question: 'What is the king of animals?', answer: 'tiger', hint: 'Orange striped', illustration: '🐯' },
-        { question: 'What is a flying mammal?', answer: 'bat', hint: 'Nocturnal creature', illustration: '🦇' },
-        { question: 'What crawls on the ground?', answer: 'snake', hint: 'No legs', illustration: '🐍' },
-        { question: 'What is a small insect?', answer: 'ant', hint: 'Works together', illustration: '🐜' },
-        { question: 'What buzzes around flowers?', answer: 'bee', hint: 'Makes honey', illustration: '🐝' },
-        { question: 'What is soft and cuddly?', answer: 'teddy', hint: 'Stuffed animal', illustration: '🧸' },
-        { question: 'What is round and you bounce it?', answer: 'soccer', hint: 'Sport ball', illustration: '⚽' },
-        { question: 'What is sweet and creamy?', answer: 'yogurt', hint: 'Cold treat', illustration: '🥛' },
-        { question: 'What is crunchy and orange?', answer: 'carrot', hint: 'Vegetable', illustration: '🥕' },
-        { question: 'What is red and round?', answer: 'tomato', hint: 'Fruit vegetable', illustration: '🍅' },
-        { question: 'What is a big cat with mane?', answer: 'lion', hint: 'Roars loud', illustration: '🦁' },
-        { question: 'What is an animal with hump?', answer: 'camel', hint: 'Desert', illustration: '🐫' },
-        { question: 'What is brown and furry?', answer: 'bear', hint: 'Forest animal', illustration: '🐻' },
-        { question: 'What is a red fruit?', answer: 'cherry', hint: 'Small fruit', illustration: '🍒' },
-        { question: 'What is a yellow fruit?', answer: 'lemon', hint: 'Sour', illustration: '🍋' },
-        { question: 'What is a popular sport?', answer: 'tennis', hint: 'With racket', illustration: '🎾' }
+        { question: 'What do you sleep in?', answer: 'bedroom', article: 'a', hint: 'Private room', illustration: '🛏️' },
+        { question: 'What has wheels and carries you?', answer: 'bicycle', article: 'a', hint: 'Two wheels', illustration: illustrations.bike },
+        { question: 'What is healthy to drink?', answer: 'water', article: '', hint: 'No color', illustration: '💧' },
+        { question: 'What do you eat with?', answer: 'spoon', article: 'a', hint: 'Kitchen tool', illustration: '🥄' },
+        { question: 'What is a big animal with spots?', answer: 'leopard', article: 'a', hint: 'Wild cat', illustration: '🐆' },
+        { question: 'What big cat has stripes?', answer: 'tiger', article: 'a', hint: 'Orange striped', illustration: '🐯' },
+        { question: 'What is a flying mammal?', answer: 'bat', article: 'a', hint: 'Nocturnal creature', illustration: '🦇' },
+        { question: 'What crawls on the ground?', answer: 'snake', article: 'a', hint: 'No legs', illustration: '🐍' },
+        { question: 'What is a small insect?', answer: 'ant', article: 'an', hint: 'Works together', illustration: '🐜' },
+        { question: 'What buzzes around flowers?', answer: 'bee', article: 'a', hint: 'Makes honey', illustration: '🐝' },
+        { question: 'What is soft and cuddly?', answer: 'teddy', article: 'a', hint: 'Stuffed animal', illustration: '🧸' },
+        { question: 'What is round and you bounce it?', answer: 'ball', article: 'a', hint: 'Sport ball', illustration: '⚽' },
+        { question: 'What food is crunchy and orange?', answer: 'carrot', article: 'a', hint: 'Vegetable', illustration: '🥕' },
+        { question: 'What food is red and round?', answer: 'tomato', article: 'a', hint: 'Fruit vegetable', illustration: '🍅' },
+        { question: 'What is a big cat with mane?', answer: 'lion', article: 'a', hint: 'Roars loud', illustration: '🦁' },
+        { question: 'What is an animal with a hump?', answer: 'camel', article: 'a', hint: 'Desert', illustration: '🐫' },
+        { question: 'What is brown and furry?', answer: 'bear', article: 'a', hint: 'Forest animal', illustration: '🐻' },
+        { question: 'What is a red fruit?', answer: 'cherry', article: 'a', hint: 'Small fruit', illustration: '🍒' },
+        { question: 'What is a yellow fruit?', answer: 'lemon', article: 'a', hint: 'Sour', illustration: '🍋' },
+        { question: 'What is a popular sport?', answer: 'tennis', article: '', hint: 'With racket', illustration: '🎾' }
     ],
     level5: [
-        { question: 'What is a happy day with gifts?', answer: 'birthday', hint: 'Celebrate day', illustration: '🎂' },
-        { question: 'What is a story with pictures?', answer: 'comic', hint: 'Funny drawings', illustration: '📖' },
-        { question: 'What animal gives wool?', answer: 'sheep', hint: 'Fluffy animal', illustration: '🐑' },
-        { question: 'What animal lives in a burrow?', answer: 'rabbit', hint: 'Hops around', illustration: '🐰' },
-        { question: 'What is a striped animal?', answer: 'zebra', hint: 'Black and white', illustration: '🦓' },
-        { question: 'What long neck animal eats leaves?', answer: 'giraffe', hint: 'Tallest animal', illustration: '🦒' },
-        { question: 'What is a funny primate?', answer: 'monkey', hint: 'Swings on trees', illustration: '🐵' },
-        { question: 'What is a cold place animal?', answer: 'penguin', hint: 'Black and white', illustration: '🐧' },
-        { question: 'What is a big water animal?', answer: 'whale', hint: 'Ocean giant', illustration: '🐳' },
-        { question: 'What is a creepy crawly?', answer: 'spider', hint: '8 legs', illustration: '🕷️' },
-        { question: 'What jumps high and is green?', answer: 'grasshopper', hint: 'Insect', illustration: '🦗' },
-        { question: 'What is a red round vegetable?', answer: 'pepper', hint: 'Spicy veggie', illustration: '🌶️' },
-        { question: 'What is a tiny sweet treat?', answer: 'cookie', hint: 'You eat it', illustration: '🍪' },
-        { question: 'What is a cold sweet treat?', answer: 'popsicle', hint: 'On a stick', illustration: '🍦' },
-        { question: 'What do you wear when cold?', answer: 'sweater', hint: 'Cozy clothing', illustration: '🧶' },
-        { question: 'What is a sweet bread?', answer: 'donut', hint: 'Fried pastry', illustration: '🍩' },
-        { question: 'What is a popular treat?', answer: 'chocolate', hint: 'Brown sweet', illustration: '🍫' },
-        { question: 'What is an animal with spots?', answer: 'cheetah', hint: 'Fast cat', illustration: '🐆' },
-        { question: 'What is a big gray animal?', answer: 'rhino', hint: 'Thick skin', illustration: '🦏' },
-        { question: 'What is a long animal?', answer: 'snake', hint: 'Reptile', illustration: '🐍' }
+        { question: 'What is a happy day with gifts?', answer: 'birthday', article: 'a', hint: 'Celebrate day', illustration: '🎂' },
+        { question: 'What is a story with a strip of pictures?', answer: 'comic', article: 'a', hint: 'Funny drawings', illustration: '📖' },
+        { question: 'What animal gives wool?', answer: 'sheep', article: 'a', hint: 'Fluffy animal', illustration: '🐑' },
+        { question: 'What animal lives in a burrow?', answer: 'rabbit', article: 'a', hint: 'Hops around', illustration: '🐰' },
+        { question: 'What is a striped animal?', answer: 'zebra', article: 'a', hint: 'Black and white', illustration: '🦓' },
+        { question: 'What long neck animal eats leaves?', answer: 'giraffe', article: 'a', hint: 'Tallest animal', illustration: '🦒' },
+        { question: 'What is a funny primate?', answer: 'monkey', article: 'a', hint: 'Swings on trees', illustration: '🐵' },
+        { question: 'What is a cold place animal?', answer: 'penguin', article: 'a', hint: 'Black and white', illustration: '🐧' },
+        { question: 'What is a big water animal?', answer: 'whale', article: 'a', hint: 'Ocean giant', illustration: '🐳' },
+        { question: 'What is a creepy crawly?', answer: 'spider', article: 'a', hint: '8 legs', illustration: '🕷️' },
+        { question: 'What jumps high and is green?', answer: 'grasshopper', article: 'a', hint: 'Insect', illustration: '🦗' },
+        { question: 'What is a red round vegetable?', answer: 'capsicum', article: 'a', hint: 'Spicy veggie', illustration: '🌶️' },
+        { question: 'What is a round snack?', answer: 'biscuit', article: 'a', hint: 'You eat it', illustration: '🍪' },
+        { question: 'What is a frozen sweet treat?', answer: 'icecream', article: 'an', hint: 'In a cone', illustration: '🍦' },
+        { question: 'What do you wear when cold?', answer: 'jumper', article: 'a', hint: 'Cozy clothing', illustration: '🧶' },
+        { question: 'What is a circular treat with a hole?', answer: 'donut', article: 'a', hint: 'Iced, Cinnamon or Jam', illustration: '🍩' },
+        { question: 'What is a popular brown treat?', answer: 'chocolate', article: 'a', hint: 'Comes in bars', illustration: '🍫' },
+        { question: 'What is an animal with spots?', answer: 'cheetah', article: 'a', hint: 'Fast cat', illustration: '🐆' },
+        { question: 'What is a big grey animal?', answer: 'rhino', article: 'a', hint: 'Thick skin and a horn', illustration: '🦏' },
+        { question: 'What is a long animal?', answer: 'snake', article: 'a', hint: 'Reptile', illustration: '🐍' }
     ]
 };
 
@@ -143,6 +141,7 @@ function setupEventListeners() {
     document.getElementById('pauseBtn').addEventListener('click', togglePause);
     document.getElementById('resetBtn').addEventListener('click', resetGame);
     document.getElementById('answerInput').addEventListener('input', handleAnswerInput);
+    document.getElementById('hintBtn').addEventListener('click', handleHintButton);
     document.addEventListener('keydown', handleSpaceBar);
 }
 
@@ -227,6 +226,7 @@ function displayQuestion(question) {
     document.getElementById('questionText').textContent = question.question;
     document.getElementById('illustration').textContent = question.illustration;
     document.getElementById('hintText').textContent = '';
+    document.getElementById('articleLabel').textContent = question.article;
     
     // Update progress
     const questionsUntilNext = 5 - (gameState.questionsAnswered % 5);
@@ -289,6 +289,22 @@ function handleSpaceBar(event) {
         gameState.waitingForNext = false;
         document.getElementById('answerInput').disabled = false;
         loadNextQuestion();
+    }
+}
+
+// Handle hint button click
+function handleHintButton(event) {
+    event.preventDefault();
+    if (!gameState.isRunning || gameState.isPaused || !gameState.currentQuestion) return;
+    
+    const hintText = document.getElementById('hintText');
+    const currentHint = `Hint: ${gameState.currentQuestion.hint}`;
+    
+    // Toggle hint visibility
+    if (hintText.textContent === currentHint) {
+        hintText.textContent = '';
+    } else {
+        hintText.textContent = currentHint;
     }
 }
 
