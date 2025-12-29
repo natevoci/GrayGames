@@ -163,6 +163,7 @@ function startGame() {
 function loadNextQuestion() {
     if (!gameState.isRunning) return;
 
+    // Use level 5 questions for any level >= 5
     const levelKey = `level${Math.min(gameState.currentLevel, 5)}`;
     const questions = questionDatabase[levelKey];
 
@@ -260,7 +261,7 @@ function handleAnswerInput(event) {
         
         // Check for level up
         if (gameState.correctAnswers % 5 === 0) {
-            gameState.currentLevel = Math.min(gameState.currentLevel + 1, 5);
+            gameState.currentLevel = gameState.currentLevel + 1;
         }
 
         // Disable input while waiting for space bar
