@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Quiz - Learn Touch Typing!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Top Control Bar -->
+        <div class="control-bar">
+            <div class="level-info">
+                <span class="level-badge">Level <span id="currentLevel">1</span></span>
+                <span class="progress-text">
+                    <span id="questionsUntilNext">5</span> more to next level
+                </span>
+            </div>
+            <div class="controls">
+                <button id="startBtn" class="btn btn-primary">Start Game</button>
+                <button id="pauseBtn" class="btn btn-secondary" disabled>Pause</button>
+                <button id="resetBtn" class="btn btn-danger">Reset</button>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area">
+            <!-- Welcome Screen -->
+            <div id="welcomeScreen" class="screen active">
+                <div class="welcome-content">
+                    <div class="title-emoji">✨</div>
+                    <h1>Magic Quiz</h1>
+                    <p class="subtitle">Learn Touch Typing the Fun Way!</p>
+                    <div class="welcome-text">
+                        <p>Answer fun questions and test your knowledge!</p>
+                        <p style="margin-top: 20px;">Ready to begin?</p>
+                    </div>
+                    <button class="btn btn-large btn-primary" onclick="startGame()">Let's Play!</button>
+                </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="gameScreen" class="screen">
+                <div class="question-container">
+                    <div class="illustration" id="illustration">🎨</div>
+                    <div class="question-text" id="questionText"></div>
+                </div>
+
+                <div class="input-area">
+                    <p class="hint-label">Type your answer:</p>
+                    <input 
+                        type="text" 
+                        id="answerInput" 
+                        class="answer-input" 
+                        placeholder="Type here..."
+                        autocomplete="off"
+                    >
+                    <p id="hintText" class="hint-text"></p>
+                </div>
+
+                <div class="feedback" id="feedback"></div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div id="gameOverScreen" class="screen">
+                <div class="game-over-content">
+                    <div class="celebration-emoji">🎉</div>
+                    <h1>Amazing Work!</h1>
+                    <div class="stats">
+                        <p>You answered <span id="finalScore">0</span> questions correctly!</p>
+                        <p>You reached Level <span id="finalLevel">1</span></p>
+                    </div>
+                    <button class="btn btn-large btn-primary" onclick="resetGame()">Play Again!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
