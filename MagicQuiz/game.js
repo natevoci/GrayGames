@@ -31,7 +31,7 @@ const illustrations = {
 // Level 3+: More complex answers and longer words
 const questionDatabase = {
     level1: [
-        { question: 'What do you pet?', answer: 'dog', article: 'a', hint: 'A furry friend', illustration: illustrations.dog },
+        { question: 'What do you pat?', answer: 'dog', article: 'a', hint: 'A furry friend', illustration: illustrations.dog },
         { question: 'What says meow?', answer: 'cat', article: 'a', hint: 'A furry pet', illustration: illustrations.cat },
         { question: 'What swims in water?', answer: 'fish', article: 'a', hint: 'Lives in water', illustration: illustrations.fish },
         { question: 'What has wings?', answer: 'bird', article: 'a', hint: 'Flies in the sky', illustration: illustrations.bird },
@@ -40,14 +40,13 @@ const questionDatabase = {
         { question: 'What is red?', answer: 'apple', article: 'an', hint: 'A fruit', illustration: illustrations.apple },
         { question: 'What is yellow?', answer: 'sun', article: 'the', hint: 'In the sky', illustration: illustrations.sun },
         { question: 'What grows in soil?', answer: 'tree', article: 'a', hint: 'Has branches', illustration: illustrations.tree },
-        { question: 'What is blue?', answer: 'sky', article: 'the', hint: 'Above clouds', illustration: illustrations.sun },
         { question: 'What animal quacks?', answer: 'duck', article: 'a', hint: 'Water bird', illustration: illustrations.duck },
         { question: 'What is green?', answer: 'leaf', article: 'a', hint: 'On tree', illustration: illustrations.leaf }
     ],
     level2: [
         { question: 'What does a duck say?', answer: 'quack', article: '', hint: 'A water sound', illustration: illustrations.duck },
         { question: 'What hops and croaks?', answer: 'frog', article: 'a', hint: 'Green and jumpy', illustration: illustrations.frog },
-        { question: 'What is round and red?', answer: 'ball', article: 'a', hint: 'You play with it', illustration: illustrations.ball },
+        { question: 'What is round and kickable?', answer: 'ball', article: 'a', hint: 'You play with it', illustration: illustrations.ball },
         { question: 'What comes at night?', answer: 'moon', article: 'the', hint: 'Glows in dark', illustration: illustrations.moon },
         { question: 'What falls from clouds?', answer: 'rain', article: 'the', hint: 'Gets you wet', illustration: illustrations.rain },
         { question: 'What is green and soft?', answer: 'grass', article: 'the', hint: 'On the ground', illustration: illustrations.grass },
@@ -80,12 +79,12 @@ const questionDatabase = {
         { question: 'What baby animal barks?', answer: 'puppy', article: 'a', hint: 'Young dog', illustration: '🐶' },
         { question: 'What is warm and bright?', answer: 'fire', article: '', hint: 'Burns hot', illustration: '🔥' },
         { question: 'What is a big striped animal?', answer: 'zebra', article: 'a', hint: 'African animal', illustration: '🦓' },
-        { question: 'What bounces and is orange?', answer: 'pumpkin', article: 'a', hint: 'Halloween', illustration: '🎃' },
+        { question: 'What is a big orange vegetable?', answer: 'pumpkin', article: 'a', hint: 'Halloween', illustration: '🎃' },
         { question: 'What has keys and makes music?', answer: 'piano', article: 'a', hint: 'Instrument', illustration: '🎹' },
         { question: 'What is white and falls in winter?', answer: 'snow', article: 'the', hint: 'Cold', illustration: '❄️' }
     ],
     level4: [
-        { question: 'What do you sleep in?', answer: 'bedroom', article: 'a', hint: 'Private room', illustration: '🛏️' },
+        { question: 'What do you sleep in?', answer: 'bed', article: 'a', hint: 'Mattress, Pillows, Doonas', illustration: '🛏️' },
         { question: 'What has wheels and carries you?', answer: 'bicycle', article: 'a', hint: 'Two wheels', illustration: illustrations.bike },
         { question: 'What is healthy to drink?', answer: 'water', article: '', hint: 'No color', illustration: '💧' },
         { question: 'What do you eat with?', answer: 'spoon', article: 'a', hint: 'Kitchen tool', illustration: '🥄' },
@@ -118,7 +117,7 @@ const questionDatabase = {
         { question: 'What is a big water animal?', answer: 'whale', article: 'a', hint: 'Ocean giant', illustration: '🐳' },
         { question: 'What is a creepy crawly?', answer: 'spider', article: 'a', hint: '8 legs', illustration: '🕷️' },
         { question: 'What jumps high and is green?', answer: 'grasshopper', article: 'a', hint: 'Insect', illustration: '🦗' },
-        { question: 'What is a red round vegetable?', answer: 'capsicum', article: 'a', hint: 'Spicy veggie', illustration: '🌶️' },
+        { question: 'What is this red vegetable?', answer: 'chilli', article: 'a', hint: 'Spicy veggie', illustration: '🌶️' },
         { question: 'What is a round snack?', answer: 'biscuit', article: 'a', hint: 'You eat it', illustration: '🍪' },
         { question: 'What is a frozen sweet treat?', answer: 'icecream', article: 'an', hint: 'In a cone', illustration: '🍦' },
         { question: 'What do you wear when cold?', answer: 'jumper', article: 'a', hint: 'Cozy clothing', illustration: '🧶' },
