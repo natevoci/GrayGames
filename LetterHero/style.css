@@ -1,0 +1,537 @@
+/* ====================================
+   Letter Hero - Styling for Kids
+   ==================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif;
+    background: linear-gradient(135deg, #FF6B9D 0%, #FFC75F 50%, #845EC2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.game-container {
+    width: 100%;
+    height: 100vh;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+
+/* ==========================================
+   CONTROLS BAR - Top of screen
+   ========================================== */
+
+.controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 30px;
+    background: linear-gradient(90deg, #FF6B9D 0%, #FFC75F 100%);
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.score-display,
+.difficulty-display,
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 12px 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FF6B9D;
+    min-width: 40px;
+}
+
+/* Speed slider styling */
+.slider {
+    width: 120px;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #FFD93D, #FF6B9D);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #FF6B9D;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #FF6B9D;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button styling */
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.btn-play {
+    background: linear-gradient(135deg, #FFD93D, #FFC75F);
+    color: #333;
+}
+
+.btn-play:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(255, 217, 61, 0.4);
+}
+
+.btn-play:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.btn-pause {
+    background: linear-gradient(135deg, #845EC2, #B39DDB);
+    color: white;
+}
+
+.btn-pause:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(132, 94, 194, 0.4);
+}
+
+.btn-pause:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.btn-reset {
+    background: linear-gradient(135deg, #FF6B9D, #FF8B94);
+    color: white;
+}
+
+.btn-reset:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.4);
+}
+
+.btn-reset:active {
+    transform: scale(0.95);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+   GAME AREA - Center play field
+   ========================================== */
+
+.game-area {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(180deg, #E0F4FF 0%, #FFF5E1 100%);
+    overflow: hidden;
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.letter-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* Falling letter styling */
+.falling-letter {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s ease;
+    cursor: pointer;
+}
+
+.falling-letter.home-row {
+    background: linear-gradient(135deg, #FFD93D, #FFC75F);
+    color: #333;
+    border: 3px solid #FF6B9D;
+}
+
+/* Game status message */
+.game-status {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 100;
+    border-radius: 16px;
+}
+
+.status-text {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.game-status.hidden {
+    display: none;
+}
+
+/* ==========================================
+   KEYBOARD - Bottom visualization
+   ========================================== */
+
+.keyboard-section {
+    background: linear-gradient(90deg, #845EC2 0%, #FF6B9D 100%);
+    padding: 20px;
+    border-radius: 0 0 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* Keyboard row offset for proper QWERTY alignment */
+#row2 {
+    margin-left: 28px; /* Offset for A being slightly right of Q */
+}
+
+#row3 {
+    margin-left: 53px; /* Offset for Z being halfway between A and S */
+}
+
+.key-button {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    font-family: 'Courier New', monospace;
+}
+
+/* Active keys (in current difficulty level) */
+.key-button.active {
+    background: linear-gradient(135deg, #FFD93D, #FFC75F);
+    color: #333;
+    border-color: #FF6B9D;
+    box-shadow: 0 6px 12px rgba(255, 107, 157, 0.4);
+    transform: scale(1.05);
+}
+
+/* Pressed key animation */
+.key-button.pressed {
+    transform: scale(0.9);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Greyed out keys (not in current difficulty) */
+.key-button.inactive {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Special keys styling */
+.key-button.space {
+    flex: 1;
+    max-width: 300px;
+    min-width: 100px;
+}
+
+/* Circled key for level-up display */
+.key-button.key-circled {
+    border: 4px solid #FF0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6), inset 0 0 10px rgba(255, 0, 0, 0.3);
+    animation: keyCirclePulse 0.8s ease-in-out infinite;
+}
+
+@keyframes keyCirclePulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.6), inset 0 0 10px rgba(255, 0, 0, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), inset 0 0 15px rgba(255, 0, 0, 0.5);
+        transform: scale(1.08);
+    }
+}
+
+/* ==========================================
+   LEVEL UP MESSAGE OVERLAY
+   ========================================== */
+
+.level-up-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    border-radius: 16px;
+}
+
+.level-up-message {
+    background: linear-gradient(135deg, #FFD93D, #FFC75F);
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: levelUpBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.level-up-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.level-up-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(255, 107, 157, 0.3);
+}
+
+.level-up-key-display {
+    font-size: 36px;
+    color: #FF6B9D;
+    font-weight: bold;
+}
+
+.new-key-letter {
+    background: linear-gradient(135deg, #FF6B9D, #845EC2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 15px;
+    display: inline-block;
+    min-width: 60px;
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+}
+
+.level-up-instruction {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+@keyframes levelUpBounce {
+    0% {
+        transform: scale(0.3) rotateX(90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 900px) {
+    .controls-bar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .label {
+        font-size: 14px;
+    }
+
+    .value {
+        font-size: 20px;
+    }
+
+    .falling-letter {
+        width: 45px;
+        height: 45px;
+        font-size: 28px;
+    }
+
+    .key-button {
+        min-width: 45px;
+        width: 45px;
+        height: 45px;
+        font-size: 14px;
+    }
+
+    #row2 {
+        margin-left: 24px;
+    }
+
+    #row3 {
+        margin-left: 45px;
+    }
+
+    .status-text {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-container {
+        border-radius: 15px;
+    }
+
+    .controls-bar {
+        padding: 10px 15px;
+        gap: 10px;
+    }
+
+    .speed-control .slider {
+        width: 80px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .falling-letter {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .key-button {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    #row2 {
+        margin-left: 18px;
+    }
+
+    #row3 {
+        margin-left: 34px;
+    }
+
+    .status-text {
+        font-size: 18px;
+    }
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.falling-letter.pop {
+    animation: pop 0.4s ease-out forwards;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.falling-letter.near-bottom {
+    animation: bounce 0.3s ease-in-out infinite;
+}
