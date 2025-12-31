@@ -1652,12 +1652,15 @@ document.addEventListener('touchmove', (e) => {
 
 // Handle touch start for mobile capturing
 document.addEventListener('touchstart', (e) => {
+    // Save the level complete state BEFORE processing this touch
+    const wasLevelCompleteAtStart = gameState.levelComplete;
+    
     // Handle startup
     if (!gameState.gameStarted && !gameState.startupInputReceived) {
         gameState.startupInputReceived = true;
     }
-    // Handle level complete
-    else if (gameState.levelComplete && !gameState.levelCompleteInputReceived) {
+    // Handle level complete - only if it was ALREADY complete before this touch started
+    else if (wasLevelCompleteAtStart && !gameState.levelCompleteInputReceived) {
         gameState.levelCompleteInputReceived = true;
     } else if (e.target === canvas) {
         // Only update net position if tap is on the canvas itself
