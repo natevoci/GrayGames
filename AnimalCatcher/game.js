@@ -224,7 +224,8 @@ let gameState = {
     levelComplete: false,
     levelCompleteInputReceived: false,
     gameStarted: false,
-    startupInputReceived: false
+    startupInputReceived: false,
+    allAnimalsMode: false
 };
 
 // Animal class
@@ -243,16 +244,35 @@ class Animal {
         this.wobbleOffset = Math.random() * Math.PI * 2;
         this.wobbleAmount = this.config.wobble ? 20 : 0;
         this.baseY = this.y;
+        
+        // Animation tracking
+        this.animationTime = Math.random() * Math.PI * 2;
+        this.hopPhase = Math.random() * Math.PI * 2;
     }
 
     update() {
         // Move horizontally with speed multiplier
         this.x += this.speed * this.direction * CONFIG.BASE_SPEED_MULTIPLIER * gameState.speedMultiplier;
         
+        // Increment animation time
+        this.animationTime += 0.1 * CONFIG.BASE_SPEED_MULTIPLIER * gameState.speedMultiplier;
+        this.hopPhase += 0.08 * CONFIG.BASE_SPEED_MULTIPLIER * gameState.speedMultiplier;
+        
         // Add wobble effect for some animals
         if (this.wobbleAmount > 0) {
             this.wobbleOffset += 0.05 * CONFIG.BASE_SPEED_MULTIPLIER * gameState.speedMultiplier;
             this.y = this.baseY + Math.sin(this.wobbleOffset) * this.wobbleAmount;
+        }
+        
+        // Hopping animation for frogs and rabbits
+        if (this.type === 'frogs' || this.type === 'rabbits') {
+            const hopHeight = this.config.size * 0.4;
+            const hopCycle = Math.sin(this.hopPhase);
+            if (hopCycle > 0) {
+                this.y = this.baseY - hopHeight * Math.sin(this.hopPhase % Math.PI);
+            } else {
+                this.y = this.baseY;
+            }
         }
     }
 
@@ -330,11 +350,20 @@ class Animal {
 
     drawMouse() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime * 4) * 5; // 4x faster, horizontal movement
+        
         // Body
         ctx.fillStyle = '#8B4513';
         ctx.beginPath();
         ctx.ellipse(0, 0, s * 0.6, s * 0.5, 0, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Back left leg - scurrying left/right
+        ctx.fillStyle = '#696969';
+        ctx.fillRect(-s * 0.35 + legWalk, s * 0.30, s * 0.15, 8);
+        
+        // Back right leg - scurrying left/right (opposite phase)
+        ctx.fillRect(s * 0.2 - legWalk, s * 0.30, s * 0.15, 8);
         
         // Head
         ctx.fillStyle = '#A0522D';
@@ -371,12 +400,14 @@ class Animal {
         ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(-s * 0.5, 0);
-        ctx.quadraticCurveTo(-s * 0.8, s * 0.3, -s * 0.9, s * 0.5);
+        ctx.quadraticCurveTo(-s * 0.8, s * 0.3 - legWalk * 0.3, -s * 0.9, s * 0.5);
         ctx.stroke();
     }
 
     drawLadybug() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime) * 2.5;
+        
         // Body
         ctx.fillStyle = '#FF0000';
         ctx.beginPath();
@@ -432,36 +463,63 @@ class Animal {
         ctx.beginPath();
         ctx.arc(0, s * 0.25, s * 0.07, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Front legs - walking
+        ctx.fillStyle = '#333333';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, -s * 0.15 + legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, -s * 0.15 - legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Middle legs - walking
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.38, s * 0.05 - legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.38, s * 0.05 + legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back legs - walking
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, s * 0.25 + legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, s * 0.25 - legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
     }
 
     drawButterfly() {
         const s = this.config.size;
+        const wingFlap = Math.abs(Math.sin(this.animationTime)) * 0.3;
+        
         // Body
         ctx.fillStyle = '#FFD700';
         ctx.beginPath();
         ctx.ellipse(0, 0, s * 0.15, s * 0.4, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Wings
+        // Wings - flapping animation
         ctx.fillStyle = '#FF69B4';
         // Top left wing
         ctx.beginPath();
-        ctx.ellipse(-s * 0.35, -s * 0.25, s * 0.35, s * 0.25, -0.3, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.35 + wingFlap), -s * 0.25, s * 0.35, s * 0.25, -0.3 - wingFlap, 0, Math.PI * 2);
         ctx.fill();
         // Top right wing
         ctx.beginPath();
-        ctx.ellipse(s * 0.35, -s * 0.25, s * 0.35, s * 0.25, 0.3, 0, Math.PI * 2);
+        ctx.ellipse(s * (0.35 + wingFlap), -s * 0.25, s * 0.35, s * 0.25, 0.3 + wingFlap, 0, Math.PI * 2);
         ctx.fill();
         
         // Bottom wings (darker)
         ctx.fillStyle = '#FF1493';
         // Bottom left wing
         ctx.beginPath();
-        ctx.ellipse(-s * 0.35, s * 0.25, s * 0.3, s * 0.2, 0.3, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.35 + wingFlap * 0.5), s * 0.25, s * 0.3, s * 0.2, 0.3 + wingFlap * 0.5, 0, Math.PI * 2);
         ctx.fill();
         // Bottom right wing
         ctx.beginPath();
-        ctx.ellipse(s * 0.35, s * 0.25, s * 0.3, s * 0.2, -0.3, 0, Math.PI * 2);
+        ctx.ellipse(s * (0.35 + wingFlap * 0.5), s * 0.25, s * 0.3, s * 0.2, -0.3 - wingFlap * 0.5, 0, Math.PI * 2);
         ctx.fill();
         
         // Antennae
@@ -479,29 +537,31 @@ class Animal {
 
     drawDragonfly() {
         const s = this.config.size;
+        const wingFlap = Math.sin(this.animationTime * 2) * 0.4;
+        
         // Body
         ctx.fillStyle = '#00FF00';
         ctx.beginPath();
         ctx.ellipse(0, 0, s * 0.18, s * 0.5, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Wings
+        // Wings - fast flapping
         ctx.fillStyle = 'rgba(173, 216, 230, 0.6)';
         // Top left wing
         ctx.beginPath();
-        ctx.ellipse(-s * 0.4, -s * 0.15, s * 0.25, s * 0.35, -0.2, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.4 + wingFlap * 0.5), -s * (0.15 + wingFlap * 0.2), s * 0.25, s * 0.35, -0.2 - wingFlap, 0, Math.PI * 2);
         ctx.fill();
         // Top right wing
         ctx.beginPath();
-        ctx.ellipse(s * 0.4, -s * 0.15, s * 0.25, s * 0.35, 0.2, 0, Math.PI * 2);
+        ctx.ellipse(s * (0.4 + wingFlap * 0.5), -s * (0.15 + wingFlap * 0.2), s * 0.25, s * 0.35, 0.2 + wingFlap, 0, Math.PI * 2);
         ctx.fill();
         
         // Bottom wings
         ctx.beginPath();
-        ctx.ellipse(-s * 0.35, s * 0.15, s * 0.2, s * 0.3, 0.2, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.35 + wingFlap * 0.3), s * (0.15 + wingFlap * 0.1), s * 0.2, s * 0.3, 0.2 + wingFlap * 0.5, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
-        ctx.ellipse(s * 0.35, s * 0.15, s * 0.2, s * 0.3, -0.2, 0, Math.PI * 2);
+        ctx.ellipse(s * (0.35 + wingFlap * 0.3), s * (0.15 + wingFlap * 0.1), s * 0.2, s * 0.3, -0.2 - wingFlap * 0.5, 0, Math.PI * 2);
         ctx.fill();
         
         // Head
@@ -522,6 +582,9 @@ class Animal {
 
     drawSnail() {
         const s = this.config.size;
+        const bodyUndulate = Math.sin(this.animationTime * 0.7) * 2;
+        const eyeStalkMove = Math.sin(this.animationTime * 1.2) * 0.1;
+        
         // Shell - spiral
         ctx.fillStyle = '#A0826D';
         ctx.beginPath();
@@ -538,33 +601,37 @@ class Animal {
         ctx.arc(-s * 0.15, -s * 0.1, s * 0.2, 0, Math.PI * 2);
         ctx.stroke();
         
-        // Body
+        // Body - undulating
         ctx.fillStyle = '#CD853F';
         ctx.beginPath();
-        ctx.ellipse(s * 0.1, s * 0.1, s * 0.3, s * 0.35, 0, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.1 + bodyUndulate, s * 0.1, s * 0.3, s * 0.35, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Head
+        // Head - following body
         ctx.fillStyle = '#CD853F';
         ctx.beginPath();
-        ctx.arc(s * 0.15, -s * 0.25, s * 0.2, 0, Math.PI * 2);
+        ctx.arc(s * 0.15 + bodyUndulate, -s * 0.25, s * 0.2, 0, Math.PI * 2);
         ctx.fill();
         
-        // Eyes on stalks
+        // Eyes on stalks - bobbing
         ctx.strokeStyle = '#CD853F';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(s * 0.1, -s * 0.35);
-        ctx.lineTo(s * 0.05, -s * 0.5);
+        ctx.moveTo(s * 0.1 + bodyUndulate, -s * 0.35);
+        ctx.quadraticCurveTo(s * 0.05 + bodyUndulate * 0.5, -s * 0.42, s * 0.05 + bodyUndulate * 0.5 + eyeStalkMove, -s * 0.5);
         ctx.stroke();
+        
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(s * 0.05, -s * 0.5, s * 0.06, 0, Math.PI * 2);
+        ctx.arc(s * 0.05 + bodyUndulate * 0.5 + eyeStalkMove, -s * 0.5, s * 0.06, 0, Math.PI * 2);
         ctx.fill();
     }
 
     drawFirefly() {
         const s = this.config.size;
+        const wingFlutter = Math.sin(this.animationTime * 3) * 0.3;
+        const glowPulse = Math.abs(Math.sin(this.animationTime * 1.5)) * 0.3 + 0.2;
+        
         // Body
         ctx.fillStyle = '#333333';
         ctx.beginPath();
@@ -577,19 +644,19 @@ class Animal {
         ctx.ellipse(0, s * 0.2, s * 0.3, s * 0.25, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Glow effect
-        ctx.fillStyle = 'rgba(255, 215, 0, 0.4)';
+        // Glow effect - pulsing
+        ctx.fillStyle = `rgba(255, 215, 0, ${glowPulse})`;
         ctx.beginPath();
         ctx.ellipse(0, s * 0.2, s * 0.4, s * 0.35, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Wings
+        // Wings - fluttering
         ctx.fillStyle = 'rgba(200, 200, 200, 0.5)';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.25, -s * 0.1, s * 0.2, s * 0.3, -0.3, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.25 + wingFlutter * 0.3), -s * 0.1, s * 0.2, s * 0.3, -0.3 - wingFlutter, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
-        ctx.ellipse(s * 0.25, -s * 0.1, s * 0.2, s * 0.3, 0.3, 0, Math.PI * 2);
+        ctx.ellipse(s * (0.25 + wingFlutter * 0.3), -s * 0.1, s * 0.2, s * 0.3, 0.3 + wingFlutter, 0, Math.PI * 2);
         ctx.fill();
         
         // Head
@@ -601,10 +668,34 @@ class Animal {
 
     drawKoala() {
         const s = this.config.size;
+        const armMove = Math.sin(this.animationTime) * 0.15;
+        const legMove = Math.sin(this.animationTime) * 3;
+        
         // Body
         ctx.fillStyle = '#808080';
         ctx.beginPath();
         ctx.ellipse(0, s * 0.1, s * 0.5, s * 0.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Left arm - hugging/moving
+        ctx.fillStyle = '#707070';
+        ctx.beginPath();
+        ctx.ellipse(-s * (0.4 + armMove * 0.3), s * 0.05, s * 0.15, s * 0.3, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Right arm - hugging/moving
+        ctx.beginPath();
+        ctx.ellipse(s * (0.4 - armMove * 0.3), s * 0.05, s * 0.15, s * 0.3, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Left leg - walking
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.25, s * 0.45 + legMove, s * 0.15, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Right leg - walking opposite
+        ctx.beginPath();
+        ctx.ellipse(s * 0.25, s * 0.45 - legMove, s * 0.15, s * 0.2, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Head
@@ -658,10 +749,33 @@ class Animal {
 
     drawWombat() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime) * 3;
+        
         // Body (stocky)
         ctx.fillStyle = '#654321';
         ctx.beginPath();
         ctx.ellipse(0, s * 0.05, s * 0.55, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Front left leg - walking
+        ctx.fillStyle = '#4a3219';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.3, s * 0.38 + legWalk, s * 0.13, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Front right leg - walking opposite
+        ctx.beginPath();
+        ctx.ellipse(s * 0.3, s * 0.38 - legWalk, s * 0.13, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back left leg - walking
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, s * 0.48 - legWalk, s * 0.12, s * 0.18, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back right leg - walking opposite
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, s * 0.48 + legWalk, s * 0.12, s * 0.18, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Head
@@ -697,6 +811,8 @@ class Animal {
 
     drawSugarGlider() {
         const s = this.config.size;
+        const wingFlutter = Math.sin(this.animationTime * 2.5) * 0.2;
+        
         // Body
         ctx.fillStyle = '#E0E0E0';
         ctx.beginPath();
@@ -718,13 +834,13 @@ class Animal {
         ctx.arc(s * 0.25, -s * 0.5, s * 0.15, 0, Math.PI * 2);
         ctx.fill();
         
-        // Gliding membrane
+        // Gliding membrane - fluttering
         ctx.fillStyle = 'rgba(224, 224, 224, 0.7)';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.35, 0, s * 0.2, s * 0.35, -0.3, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.35 + wingFlutter), 0, s * 0.2, s * (0.35 + wingFlutter * 0.5), -0.3 - wingFlutter * 0.2, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
-        ctx.ellipse(s * 0.35, 0, s * 0.2, s * 0.35, 0.3, 0, Math.PI * 2);
+        ctx.ellipse(s * (0.35 + wingFlutter), 0, s * 0.2, s * (0.35 + wingFlutter * 0.5), 0.3 + wingFlutter * 0.2, 0, Math.PI * 2);
         ctx.fill();
         
         // Eyes
@@ -745,60 +861,73 @@ class Animal {
 
     drawKookaburra() {
         const s = this.config.size;
+        const wingFlap = Math.sin(this.animationTime * 1.5) * 0.2;
+        const headBob = Math.sin(this.animationTime * 1.2) * 0.12;
+        
         // Body
         ctx.fillStyle = '#8B6F47';
         ctx.beginPath();
         ctx.ellipse(0, s * 0.1, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Head
+        // Head - bobbing
         ctx.fillStyle = '#8B6F47';
         ctx.beginPath();
-        ctx.arc(s * 0.25, -s * 0.2, s * 0.35, 0, Math.PI * 2);
+        ctx.arc(s * 0.25, -s * 0.2 + headBob, s * 0.35, 0, Math.PI * 2);
         ctx.fill();
         
         // Beak
         ctx.fillStyle = '#FFB90F';
         ctx.beginPath();
-        ctx.moveTo(s * 0.5, -s * 0.15);
-        ctx.lineTo(s * 0.85, -s * 0.2);
-        ctx.lineTo(s * 0.5, -s * 0.05);
+        ctx.moveTo(s * 0.5, -s * 0.15 + headBob);
+        ctx.lineTo(s * 0.85, -s * 0.2 + headBob);
+        ctx.lineTo(s * 0.5, -s * 0.05 + headBob);
         ctx.fill();
         
         // Eyes
         ctx.fillStyle = 'white';
         ctx.beginPath();
-        ctx.arc(s * 0.2, -s * 0.3, s * 0.12, 0, Math.PI * 2);
+        ctx.arc(s * 0.2, -s * 0.3 + headBob, s * 0.12, 0, Math.PI * 2);
         ctx.fill();
         
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(s * 0.2, -s * 0.3, s * 0.07, 0, Math.PI * 2);
+        ctx.arc(s * 0.2, -s * 0.3 + headBob, s * 0.07, 0, Math.PI * 2);
         ctx.fill();
         
-        // Wings
+        // Wings - flapping
         ctx.fillStyle = '#6B5638';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.25, 0, s * 0.3, s * 0.35, -0.3, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.25 + wingFlap * 0.4), 0, s * (0.3 + wingFlap * 0.2), s * (0.35 + wingFlap * 0.1), -0.3 - wingFlap * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Right wing hidden behind body but visible edge
+        ctx.fillStyle = '#5A4829';
+        ctx.beginPath();
+        ctx.ellipse(s * (0.15 - wingFlap * 0.3), s * 0.1, s * 0.2, s * 0.25, 0.2, 0, Math.PI * 2);
         ctx.fill();
     }
 
     drawEchidna() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime) * 2;
+        const spikeMove = Math.sin(this.animationTime * 0.8) * 0.08;
+        
         // Body
         ctx.fillStyle = '#5C4033';
         ctx.beginPath();
         ctx.ellipse(0, 0, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Spikes on back
+        // Spikes on back - moving
         ctx.strokeStyle = '#5C4033';
         ctx.lineWidth = 3;
         for (let i = 0; i < 5; i++) {
-            const angle = (i - 2) * 0.3;
+            const angle = (i - 2) * 0.3 + spikeMove;
+            const spikeLength = 0.5 + Math.sin(this.animationTime * 1.2 + i * 0.5) * 0.1;
             ctx.beginPath();
             ctx.moveTo(Math.cos(angle) * s * 0.3, Math.sin(angle) * s * 0.35 - s * 0.3);
-            ctx.lineTo(Math.cos(angle) * s * 0.35, Math.sin(angle) * s * 0.45 - s * 0.5);
+            ctx.lineTo(Math.cos(angle) * s * 0.35, Math.sin(angle) * s * 0.45 * spikeLength - s * 0.5);
             ctx.stroke();
         }
         
@@ -818,6 +947,27 @@ class Animal {
         ctx.fillStyle = 'black';
         ctx.beginPath();
         ctx.arc(s * 0.15, -s * 0.35, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Front left leg - walking
+        ctx.fillStyle = '#4a3228';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.3, s * 0.35 + legWalk, s * 0.1, s * 0.18, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Front right leg - walking opposite
+        ctx.beginPath();
+        ctx.ellipse(s * 0.1, s * 0.35 - legWalk, s * 0.1, s * 0.18, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back left leg
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, s * 0.45 - legWalk, s * 0.09, s * 0.16, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back right leg
+        ctx.beginPath();
+        ctx.ellipse(s * 0.05, s * 0.45 + legWalk, s * 0.09, s * 0.16, 0, 0, Math.PI * 2);
         ctx.fill();
     }
 
@@ -888,11 +1038,19 @@ class Animal {
 
     drawDog() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime) * 4;
+        const tailWag = Math.sin(this.animationTime * 1.5) * 15;
+        
         // Body
         ctx.fillStyle = '#DAA520';
         ctx.beginPath();
         ctx.ellipse(0, s * 0.1, s * 0.55, s * 0.48, 0, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Back legs
+        ctx.fillStyle = '#CD853F';
+        ctx.fillRect(-s * 0.35, legWalk + s * 0.25, s * 0.12, 12);
+        ctx.fillRect(s * 0.2, -legWalk + s * 0.25, s * 0.12, 12);
         
         // Head
         ctx.fillStyle = '#DAA520';
@@ -930,17 +1088,20 @@ class Animal {
         ctx.ellipse(s * 0.3, 0, s * 0.08, s * 0.12, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Tail
+        // Tail - wagging
         ctx.strokeStyle = '#DAA520';
         ctx.lineWidth = 4;
         ctx.beginPath();
         ctx.moveTo(-s * 0.5, s * 0.2);
-        ctx.quadraticCurveTo(-s * 0.8, -s * 0.1, -s * 0.9, -s * 0.3);
+        ctx.quadraticCurveTo(-s * 0.8 + tailWag * 0.5, -s * 0.1, -s * 0.9 + tailWag, -s * 0.3);
         ctx.stroke();
     }
 
     drawFish() {
         const s = this.config.size;
+        const tailWag = Math.sin(this.animationTime * 2) * 0.2;
+        const finMove = Math.sin(this.animationTime) * 0.15;
+        
         // Body
         ctx.fillStyle = '#00CED1';
         ctx.beginPath();
@@ -950,21 +1111,21 @@ class Animal {
         // Top fin
         ctx.fillStyle = '#20B2AA';
         ctx.beginPath();
-        ctx.ellipse(0, -s * 0.35, s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, -s * (0.35 + finMove), s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Bottom fin
         ctx.fillStyle = '#20B2AA';
         ctx.beginPath();
-        ctx.ellipse(0, s * 0.35, s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, s * (0.35 + finMove), s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Tail fin
+        // Tail fin - wagging
         ctx.fillStyle = '#00CED1';
         ctx.beginPath();
         ctx.moveTo(-s * 0.5, -s * 0.2);
-        ctx.lineTo(-s * 0.8, -s * 0.35);
-        ctx.lineTo(-s * 0.8, s * 0.35);
+        ctx.lineTo(-s * (0.8 + tailWag), -s * (0.35 + tailWag * 0.5));
+        ctx.lineTo(-s * (0.8 + tailWag), s * (0.35 + tailWag * 0.5));
         ctx.lineTo(-s * 0.5, s * 0.2);
         ctx.fill();
         
@@ -989,6 +1150,8 @@ class Animal {
 
     drawCrab() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime) * 0.3;
+        
         // Body
         ctx.fillStyle = '#FF4500';
         ctx.beginPath();
@@ -1000,59 +1163,63 @@ class Animal {
         ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(-s * 0.1, -s * 0.35);
-        ctx.lineTo(-s * 0.2, -s * 0.55);
+        ctx.lineTo(-s * 0.2, -s * (0.55 + legWalk * 0.5));
         ctx.stroke();
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(-s * 0.2, -s * 0.55, s * 0.08, 0, Math.PI * 2);
+        ctx.arc(-s * 0.2, -s * (0.55 + legWalk * 0.5), s * 0.08, 0, Math.PI * 2);
         ctx.fill();
         
         ctx.strokeStyle = '#FF4500';
         ctx.beginPath();
         ctx.moveTo(s * 0.1, -s * 0.35);
-        ctx.lineTo(s * 0.2, -s * 0.55);
+        ctx.lineTo(s * 0.2, -s * (0.55 + legWalk * 0.5));
         ctx.stroke();
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(s * 0.2, -s * 0.55, s * 0.08, 0, Math.PI * 2);
+        ctx.arc(s * 0.2, -s * (0.55 + legWalk * 0.5), s * 0.08, 0, Math.PI * 2);
         ctx.fill();
         
-        // Claws
+        // Claws - moving
         ctx.strokeStyle = '#FF4500';
         ctx.lineWidth = 4;
         // Left claw
         ctx.beginPath();
         ctx.moveTo(-s * 0.35, s * 0.1);
-        ctx.lineTo(-s * 0.6, s * 0.05);
+        ctx.lineTo(-s * (0.6 + legWalk * 0.3), s * 0.05);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(-s * 0.6, s * 0.05);
-        ctx.lineTo(-s * 0.7, s * 0.15);
+        ctx.moveTo(-s * (0.6 + legWalk * 0.3), s * 0.05);
+        ctx.lineTo(-s * (0.7 + legWalk * 0.2), s * 0.15);
         ctx.stroke();
         
         // Right claw
         ctx.beginPath();
         ctx.moveTo(s * 0.35, s * 0.1);
-        ctx.lineTo(s * 0.6, s * 0.05);
+        ctx.lineTo(s * (0.6 + legWalk * 0.3), s * 0.05);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(s * 0.6, s * 0.05);
-        ctx.lineTo(s * 0.7, s * 0.15);
+        ctx.moveTo(s * (0.6 + legWalk * 0.3), s * 0.05);
+        ctx.lineTo(s * (0.7 + legWalk * 0.2), s * 0.15);
         ctx.stroke();
         
-        // Legs
+        // Legs - walking
         ctx.lineWidth = 3;
         for (let i = 0; i < 3; i++) {
             const angle = (i - 1) * 0.3;
+            const legOffset = Math.sin(this.animationTime + i * 0.7) * 0.2;
             ctx.beginPath();
             ctx.moveTo(s * 0.25 * Math.cos(angle), s * 0.3 * Math.sin(angle));
-            ctx.lineTo(s * 0.45 * Math.cos(angle), s * 0.5 * Math.sin(angle));
+            ctx.lineTo(s * (0.45 + legOffset) * Math.cos(angle), s * (0.5 + legOffset) * Math.sin(angle));
             ctx.stroke();
         }
     }
 
     drawFairy() {
         const s = this.config.size;
+        const wingFlutter = Math.sin(this.animationTime * 2.8) * 0.25;
+        const wandBob = Math.sin(this.animationTime * 1.3) * 0.15;
+        
         // Head
         ctx.fillStyle = '#FFD89B';
         ctx.beginPath();
@@ -1065,13 +1232,13 @@ class Animal {
         ctx.ellipse(0, s * 0.05, s * 0.3, s * 0.4, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Wings
+        // Wings - fluttering
         ctx.fillStyle = 'rgba(255, 182, 193, 0.8)';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.4, -s * 0.1, s * 0.25, s * 0.35, -0.3, 0, Math.PI * 2);
+        ctx.ellipse(-s * (0.4 - wingFlutter * 0.2), -s * 0.1, s * 0.25 + wingFlutter * 0.1, s * 0.35, -0.3 - wingFlutter * 0.3, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
-        ctx.ellipse(s * 0.4, -s * 0.1, s * 0.25, s * 0.35, 0.3, 0, Math.PI * 2);
+        ctx.ellipse(s * (0.4 - wingFlutter * 0.2), -s * 0.1, s * 0.25 + wingFlutter * 0.1, s * 0.35, 0.3 + wingFlutter * 0.3, 0, Math.PI * 2);
         ctx.fill();
         
         // Face
@@ -1092,45 +1259,51 @@ class Animal {
         ctx.arc(s * 0.08, -s * 0.3, s * 0.04, 0, Math.PI * 2);
         ctx.fill();
         
-        // Magic wand
+        // Magic wand - bobbing and glowing
         ctx.strokeStyle = '#FFD700';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(s * 0.35, -s * 0.4);
-        ctx.lineTo(s * 0.5, -s * 0.55);
+        ctx.moveTo(s * 0.35, -s * 0.4 + wandBob);
+        ctx.lineTo(s * 0.5, -s * 0.55 + wandBob);
         ctx.stroke();
+        
+        // Wand star - pulsing glow
+        const glowPulse = Math.abs(Math.sin(this.animationTime * 2)) * 0.08;
         ctx.fillStyle = '#FFD700';
         ctx.beginPath();
-        ctx.arc(s * 0.5, -s * 0.55, s * 0.1, 0, Math.PI * 2);
+        ctx.arc(s * 0.5, -s * 0.55 + wandBob, s * (0.1 + glowPulse), 0, Math.PI * 2);
         ctx.fill();
     }
 
     drawGnome() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime) * 2.5;
+        const headBob = Math.sin(this.animationTime * 1.3) * 0.1;
+        
         // Hat
         ctx.fillStyle = '#228B22';
         ctx.beginPath();
-        ctx.moveTo(-s * 0.25, -s * 0.15);
-        ctx.lineTo(0, -s * 0.6);
-        ctx.lineTo(s * 0.25, -s * 0.15);
+        ctx.moveTo(-s * 0.25, -s * 0.15 + headBob);
+        ctx.lineTo(0, -s * 0.6 + headBob);
+        ctx.lineTo(s * 0.25, -s * 0.15 + headBob);
         ctx.fill();
         
         // Hat brim
         ctx.fillStyle = '#32CD32';
         ctx.beginPath();
-        ctx.ellipse(0, -s * 0.15, s * 0.3, s * 0.1, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, -s * 0.15 + headBob, s * 0.3, s * 0.1, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Face
         ctx.fillStyle = '#FFD89B';
         ctx.beginPath();
-        ctx.arc(0, s * 0.05, s * 0.3, 0, Math.PI * 2);
+        ctx.arc(0, s * 0.05 + headBob, s * 0.3, 0, Math.PI * 2);
         ctx.fill();
         
         // Beard
         ctx.fillStyle = '#DAA520';
         ctx.beginPath();
-        ctx.arc(0, s * 0.25, s * 0.2, 0, Math.PI);
+        ctx.arc(0, s * 0.25 + headBob, s * 0.2, 0, Math.PI);
         ctx.fill();
         
         // Body
@@ -1139,19 +1312,30 @@ class Animal {
         ctx.ellipse(0, s * 0.4, s * 0.35, s * 0.3, 0, 0, Math.PI * 2);
         ctx.fill();
         
+        // Left leg - walking
+        ctx.fillStyle = '#8B4513';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.15, s * 0.65 + legWalk, s * 0.12, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Right leg - walking opposite
+        ctx.beginPath();
+        ctx.ellipse(s * 0.15, s * 0.65 - legWalk, s * 0.12, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
         // Eyes
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(-s * 0.1, 0, s * 0.08, 0, Math.PI * 2);
+        ctx.arc(-s * 0.1, headBob, s * 0.08, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
-        ctx.arc(s * 0.1, 0, s * 0.08, 0, Math.PI * 2);
+        ctx.arc(s * 0.1, headBob, s * 0.08, 0, Math.PI * 2);
         ctx.fill();
         
         // Nose
         ctx.fillStyle = '#FF69B4';
         ctx.beginPath();
-        ctx.arc(0, s * 0.1, s * 0.07, 0, Math.PI * 2);
+        ctx.arc(0, s * 0.1 + headBob, s * 0.07, 0, Math.PI * 2);
         ctx.fill();
     }
 
@@ -1336,7 +1520,8 @@ function update() {
     }
 
     // Spawn new animals only if we haven't reached 20 yet
-    if (gameState.totalAnimalsSpawned < CONFIG.ANIMALS_PER_LEVEL) {
+    // Don't spawn additional animals in all animals mode
+    if (!gameState.allAnimalsMode && gameState.totalAnimalsSpawned < CONFIG.ANIMALS_PER_LEVEL) {
         if (Math.random() < CONFIG.SPAWN_RATE_BASE + (gameState.level - 1) * CONFIG.SPAWN_RATE_INCREMENT) {
             gameState.animals.push(new Animal(gameState.currentAnimalType));
             gameState.totalAnimalsSpawned++;
@@ -1464,6 +1649,11 @@ document.addEventListener('keydown', (e) => {
             gameState.isSpacePressed = true;
         }
     }
+    // Handle 'a' key to start with all animals
+    else if ((e.key === 'a' || e.key === 'A') && !gameState.gameStarted && !gameState.startupInputReceived) {
+        gameState.allAnimalsMode = true;
+        gameState.startupInputReceived = true;
+    }
 });
 
 document.addEventListener('keyup', (e) => {
@@ -1511,9 +1701,16 @@ function levelUp() {
 function showLevelCompletePopup() {
     const popup = document.getElementById('levelCompletePopup');
     const message = document.getElementById('popupMessage');
-    const animalName = ANIMAL_TYPES[gameState.currentAnimalType].name;
     
-    message.textContent = `You caught all the ${animalName}.`;
+    let messageText;
+    if (gameState.allAnimalsMode) {
+        messageText = `You caught all the animals!`;
+    } else {
+        const animalName = ANIMAL_TYPES[gameState.currentAnimalType].name;
+        messageText = `You caught all the ${animalName}.`;
+    }
+    
+    message.textContent = messageText;
     popup.classList.remove('hidden');
 }
 
@@ -1688,6 +1885,15 @@ function startGame() {
     hideStartupPopup();
     gameState.gameStarted = true;
     gameState.isAnimating = true;
+    
+    // If all animals mode, pre-spawn one of each animal
+    if (gameState.allAnimalsMode) {
+        for (let animalType of ANIMAL_KEYS) {
+            gameState.animals.push(new Animal(animalType));
+        }
+        gameState.totalAnimalsSpawned = ANIMAL_KEYS.length;
+    }
+    
     updatePlayButton();
 }
 
