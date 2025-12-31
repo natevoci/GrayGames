@@ -25,6 +25,7 @@ const backgroundImages = {
     sugarGliders: null,
     gnomes: null,
     kookaburras: null,
+    ants: null,
     echidnas: null,
     frogs: null,
     rabbits: null
@@ -142,6 +143,14 @@ const ANIMAL_TYPES = {
         speed: 1.7,
         points: 18,
         emoji: '🦅'
+    },
+    ants: {
+        name: 'Ants',
+        color: '#8B4513',
+        size: 28,
+        speed: 1.5,
+        points: 8,
+        emoji: '🐜'
     },
     cats: {
         name: 'Cats',
@@ -342,6 +351,9 @@ class Animal {
                 break;
             case 'kookaburras':
                 this.drawKookaburra();
+                break;
+            case 'ants':
+                this.drawAnts();
                 break;
             case 'echidnas':
                 this.drawEchidna();
@@ -921,6 +933,57 @@ class Animal {
         ctx.fillStyle = '#5A4829';
         ctx.beginPath();
         ctx.ellipse(s * (0.15 - wingFlap * 0.3), s * 0.1, s * 0.2, s * 0.25, 0.2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawAnts() {
+        const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime * 5) * 3; // Very fast scurrying
+        
+        // Abdomen (rear segment, largest) - positioned back, horizontal alignment
+        ctx.fillStyle = '#654321';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.6, -s * 0.3, s * 0.32, s * 0.23, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Thorax (middle segment, smaller) - positioned center, horizontal alignment
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.1, -s * 0.25, s * 0.20, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head (small, at front in profile) - horizontal alignment
+        ctx.beginPath();
+        ctx.arc(s * 0.25, -s * 0.3, s * 0.23, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eye (single eye visible in side profile)
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.42, -s * 0.32, s * 0.05, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Antenna (single antenna visible in profile)
+        ctx.strokeStyle = '#654321';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(s * 0.32, -s * 0.42);
+        ctx.quadraticCurveTo(s * 0.45, -s * 0.55, s * 0.5, -s * 0.5);
+        ctx.stroke();
+        
+        // Front leg - very fast scurrying (visible from side)
+        ctx.fillStyle = '#4a3219';
+        ctx.beginPath();
+        ctx.ellipse(s * 0.15 + legWalk, s * 0.0, s * 0.04, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Middle leg - scurrying opposite phase
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.25 - legWalk, s * 0.0, s * 0.04, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back leg - scurrying with legWalk
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.45 + legWalk, s * 0.0, s * 0.04, s * 0.15, 0, 0, Math.PI * 2);
         ctx.fill();
     }
 
