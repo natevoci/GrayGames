@@ -1882,6 +1882,7 @@ function advanceLevel() {
     hideLevelCompletePopup();
     gameState.levelComplete = false;
     gameState.isPaused = false;
+    gameState.levelCompleteInputReceived = false;
     
     if (gameState.level < ANIMAL_KEYS.length) {
         gameState.level++;
