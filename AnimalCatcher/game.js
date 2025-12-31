@@ -1217,6 +1217,7 @@ function advanceLevel() {
         playSound('levelUpSound');
     }
     updateUI();
+    updatePlayButton();
 }
 
 // Play sound effect
@@ -1266,32 +1267,27 @@ function gameLoop() {
 
 // Control event handlers
 function setupControls() {
-    const startBtn = document.getElementById('startBtn');
+    const playBtn = document.getElementById('playBtn');
     const pauseBtn = document.getElementById('pauseBtn');
-    const resumeBtn = document.getElementById('resumeBtn');
     const speedSlider = document.getElementById('speedSlider');
 
-    // Start button - begin the game
-    startBtn.addEventListener('click', () => {
-        gameState.isAnimating = true;
-        gameState.isPaused = false;
-        startBtn.disabled = true;
-        pauseBtn.disabled = false;
-        resumeBtn.disabled = true;
+    // Play button - begin the game or resume from pause
+    playBtn.addEventListener('click', () => {
+        if (!gameState.gameStarted) {
+            // Starting new game
+            gameState.gameStarted = true;
+            gameState.isAnimating = true;
+        } else {
+            // Resuming from pause
+            gameState.isPaused = false;
+        }
+        updatePlayButton();
     });
 
     // Pause button - pause the game
     pauseBtn.addEventListener('click', () => {
         gameState.isPaused = true;
-        pauseBtn.disabled = true;
-        resumeBtn.disabled = false;
-    });
-
-    // Resume button - resume the game
-    resumeBtn.addEventListener('click', () => {
-        gameState.isPaused = false;
-        pauseBtn.disabled = false;
-        resumeBtn.disabled = true;
+        updatePlayButton();
     });
 
     // Speed slider - adjust game speed
@@ -1299,6 +1295,28 @@ function setupControls() {
         gameState.speedMultiplier = parseFloat(e.target.value);
         updateUI();
     });
+}
+
+// Update play button state
+function updatePlayButton() {
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    
+    if (!gameState.gameStarted) {
+        // Game hasn't started yet
+        playBtn.textContent = 'Start';
+        playBtn.disabled = false;
+        pauseBtn.disabled = true;
+    } else if (gameState.isPaused) {
+        // Game is paused
+        playBtn.textContent = 'Resume';
+        playBtn.disabled = false;
+        pauseBtn.disabled = true;
+    } else {
+        // Game is playing
+        playBtn.disabled = true;
+        pauseBtn.disabled = false;
+    }
 }
 
 // Initialize and start game
@@ -1315,6 +1333,7 @@ function startGame() {
     hideStartupPopup();
     gameState.gameStarted = true;
     gameState.isAnimating = true;
+    updatePlayButton();
 }
 
 // Start when page loads
