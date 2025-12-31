@@ -150,7 +150,6 @@ class Animal {
     }
 
     draw() {
-        // Draw cute rounded animal shape
         ctx.save();
         ctx.translate(this.x, this.y);
         
@@ -158,30 +157,520 @@ class Animal {
             ctx.scale(-1, 1);
         }
         
+        // Draw animal based on type
+        switch(this.type) {
+            case 'mice':
+                this.drawMouse();
+                break;
+            case 'butterflies':
+                this.drawButterfly();
+                break;
+            case 'cats':
+                this.drawCat();
+                break;
+            case 'dogs':
+                this.drawDog();
+                break;
+            case 'fish':
+                this.drawFish();
+                break;
+            case 'crabs':
+                this.drawCrab();
+                break;
+            case 'fairies':
+                this.drawFairy();
+                break;
+            case 'gnomes':
+                this.drawGnome();
+                break;
+            case 'frogs':
+                this.drawFrog();
+                break;
+        }
+        
+        ctx.restore();
+    }
+
+    drawMouse() {
+        const s = this.config.size;
         // Body
-        ctx.fillStyle = this.config.color;
+        ctx.fillStyle = '#8B4513';
         ctx.beginPath();
-        ctx.ellipse(0, 0, this.config.size, this.config.size * 0.75, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, s * 0.6, s * 0.5, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Head
-        ctx.fillStyle = this.config.color;
+        ctx.fillStyle = '#A0522D';
         ctx.beginPath();
-        ctx.arc(this.config.size * 0.4, -this.config.size * 0.4, this.config.size * 0.55, 0, Math.PI * 2);
+        ctx.arc(s * 0.35, -s * 0.3, s * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Ears
+        ctx.fillStyle = '#8B4513';
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.6, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.5, -s * 0.6, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.4, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.45, -s * 0.4, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = '#FF69B4';
+        ctx.beginPath();
+        ctx.arc(s * 0.5, -s * 0.2, s * 0.06, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Tail
+        ctx.strokeStyle = '#696969';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.5, 0);
+        ctx.quadraticCurveTo(-s * 0.8, s * 0.3, -s * 0.9, s * 0.5);
+        ctx.stroke();
+    }
+
+    drawButterfly() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#FFD700';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s * 0.15, s * 0.4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Wings
+        ctx.fillStyle = '#FF69B4';
+        // Top left wing
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, -s * 0.25, s * 0.35, s * 0.25, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        // Top right wing
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, -s * 0.25, s * 0.35, s * 0.25, 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Bottom wings (darker)
+        ctx.fillStyle = '#FF1493';
+        // Bottom left wing
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, s * 0.25, s * 0.3, s * 0.2, 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        // Bottom right wing
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, s * 0.25, s * 0.3, s * 0.2, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Antennae
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.05, -s * 0.3);
+        ctx.quadraticCurveTo(-s * 0.2, -s * 0.5, -s * 0.25, -s * 0.6);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(s * 0.05, -s * 0.3);
+        ctx.quadraticCurveTo(s * 0.2, -s * 0.5, s * 0.25, -s * 0.6);
+        ctx.stroke();
+    }
+
+    drawCat() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#FF8C00';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.05, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#FF8C00';
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.25, s * 0.35, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Ears
+        ctx.fillStyle = '#FF8C00';
+        ctx.beginPath();
+        ctx.moveTo(s * 0.05, -s * 0.55);
+        ctx.lineTo(s * 0.05, -s * 0.75);
+        ctx.lineTo(s * 0.15, -s * 0.6);
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.moveTo(s * 0.5, -s * 0.55);
+        ctx.lineTo(s * 0.5, -s * 0.75);
+        ctx.lineTo(s * 0.4, -s * 0.6);
         ctx.fill();
         
         // Eyes
         ctx.fillStyle = 'white';
         ctx.beginPath();
-        ctx.arc(this.config.size * 0.55, -this.config.size * 0.55, this.config.size * 0.15, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.15, -s * 0.35, s * 0.12, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.4, -s * 0.35, s * 0.12, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Pupils
+        ctx.fillStyle = '#228B22';
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.35, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.4, -s * 0.35, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = '#FF69B4';
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.15, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Whiskers
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s * 0.35, -s * 0.12);
+        ctx.lineTo(s * 0.55, -s * 0.12);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(s * 0.35, -s * 0.2);
+        ctx.lineTo(s * 0.55, -s * 0.2);
+        ctx.stroke();
+    }
+
+    drawDog() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#DAA520';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.1, s * 0.55, s * 0.48, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#DAA520';
+        ctx.beginPath();
+        ctx.arc(s * 0.25, -s * 0.3, s * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Ears
+        ctx.fillStyle = '#CD853F';
+        ctx.beginPath();
+        ctx.ellipse(s * 0.05, -s * 0.55, s * 0.2, s * 0.3, -0.4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.45, -s * 0.55, s * 0.2, s * 0.3, 0.4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.4, s * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.35, -s * 0.4, s * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = '#333';
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.15, s * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Tongue
+        ctx.fillStyle = '#FF69B4';
+        ctx.beginPath();
+        ctx.ellipse(s * 0.3, 0, s * 0.08, s * 0.12, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Tail
+        ctx.strokeStyle = '#DAA520';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.5, s * 0.2);
+        ctx.quadraticCurveTo(-s * 0.8, -s * 0.1, -s * 0.9, -s * 0.3);
+        ctx.stroke();
+    }
+
+    drawFish() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#00CED1';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s * 0.5, s * 0.35, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Top fin
+        ctx.fillStyle = '#20B2AA';
+        ctx.beginPath();
+        ctx.ellipse(0, -s * 0.35, s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Bottom fin
+        ctx.fillStyle = '#20B2AA';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.35, s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Tail fin
+        ctx.fillStyle = '#00CED1';
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.5, -s * 0.2);
+        ctx.lineTo(-s * 0.8, -s * 0.35);
+        ctx.lineTo(-s * 0.8, s * 0.35);
+        ctx.lineTo(-s * 0.5, s * 0.2);
+        ctx.fill();
+        
+        // Eye
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.15, s * 0.12, 0, Math.PI * 2);
         ctx.fill();
         
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(this.config.size * 0.6, -this.config.size * 0.6, this.config.size * 0.08, 0, Math.PI * 2);
+        ctx.arc(s * 0.3, -s * 0.15, s * 0.07, 0, Math.PI * 2);
         ctx.fill();
         
-        ctx.restore();
+        // Mouth
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(s * 0.5, -s * 0.1, s * 0.1, 0, Math.PI);
+        ctx.stroke();
+    }
+
+    drawCrab() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#FF4500';
+        ctx.beginPath();
+        ctx.arc(0, 0, s * 0.35, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eye stalks and eyes
+        ctx.strokeStyle = '#FF4500';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.1, -s * 0.35);
+        ctx.lineTo(-s * 0.2, -s * 0.55);
+        ctx.stroke();
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.2, -s * 0.55, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.strokeStyle = '#FF4500';
+        ctx.beginPath();
+        ctx.moveTo(s * 0.1, -s * 0.35);
+        ctx.lineTo(s * 0.2, -s * 0.55);
+        ctx.stroke();
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.2, -s * 0.55, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Claws
+        ctx.strokeStyle = '#FF4500';
+        ctx.lineWidth = 4;
+        // Left claw
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.35, s * 0.1);
+        ctx.lineTo(-s * 0.6, s * 0.05);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.6, s * 0.05);
+        ctx.lineTo(-s * 0.7, s * 0.15);
+        ctx.stroke();
+        
+        // Right claw
+        ctx.beginPath();
+        ctx.moveTo(s * 0.35, s * 0.1);
+        ctx.lineTo(s * 0.6, s * 0.05);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(s * 0.6, s * 0.05);
+        ctx.lineTo(s * 0.7, s * 0.15);
+        ctx.stroke();
+        
+        // Legs
+        ctx.lineWidth = 3;
+        for (let i = 0; i < 3; i++) {
+            const angle = (i - 1) * 0.3;
+            ctx.beginPath();
+            ctx.moveTo(s * 0.25 * Math.cos(angle), s * 0.3 * Math.sin(angle));
+            ctx.lineTo(s * 0.45 * Math.cos(angle), s * 0.5 * Math.sin(angle));
+            ctx.stroke();
+        }
+    }
+
+    drawFairy() {
+        const s = this.config.size;
+        // Head
+        ctx.fillStyle = '#FFD89B';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.25, s * 0.25, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Body (dress)
+        ctx.fillStyle = '#FFD700';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.05, s * 0.3, s * 0.4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Wings
+        ctx.fillStyle = 'rgba(255, 182, 193, 0.8)';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.4, -s * 0.1, s * 0.25, s * 0.35, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.4, -s * 0.1, s * 0.25, s * 0.35, 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Face
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(-s * 0.08, -s * 0.3, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.08, -s * 0.3, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = '#4169E1';
+        ctx.beginPath();
+        ctx.arc(-s * 0.08, -s * 0.3, s * 0.04, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.08, -s * 0.3, s * 0.04, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Magic wand
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s * 0.35, -s * 0.4);
+        ctx.lineTo(s * 0.5, -s * 0.55);
+        ctx.stroke();
+        ctx.fillStyle = '#FFD700';
+        ctx.beginPath();
+        ctx.arc(s * 0.5, -s * 0.55, s * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawGnome() {
+        const s = this.config.size;
+        // Hat
+        ctx.fillStyle = '#228B22';
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.25, -s * 0.15);
+        ctx.lineTo(0, -s * 0.6);
+        ctx.lineTo(s * 0.25, -s * 0.15);
+        ctx.fill();
+        
+        // Hat brim
+        ctx.fillStyle = '#32CD32';
+        ctx.beginPath();
+        ctx.ellipse(0, -s * 0.15, s * 0.3, s * 0.1, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Face
+        ctx.fillStyle = '#FFD89B';
+        ctx.beginPath();
+        ctx.arc(0, s * 0.05, s * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Beard
+        ctx.fillStyle = '#DAA520';
+        ctx.beginPath();
+        ctx.arc(0, s * 0.25, s * 0.2, 0, Math.PI);
+        ctx.fill();
+        
+        // Body
+        ctx.fillStyle = '#4169E1';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.4, s * 0.35, s * 0.3, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.1, 0, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.1, 0, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = '#FF69B4';
+        ctx.beginPath();
+        ctx.arc(0, s * 0.1, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawFrog() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#32CD32';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.05, s * 0.45, s * 0.4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back legs
+        ctx.fillStyle = '#228B22';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, s * 0.35, s * 0.2, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, s * 0.35, s * 0.2, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Front legs
+        ctx.fillStyle = '#32CD32';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, -s * 0.1, s * 0.15, s * 0.12, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, -s * 0.1, s * 0.15, s * 0.12, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head bump
+        ctx.fillStyle = '#32CD32';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.3, s * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = '#228B22';
+        ctx.beginPath();
+        ctx.arc(-s * 0.15, -s * 0.45, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.45, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eye pupils
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(-s * 0.15, -s * 0.48, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.48, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Mouth
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.2, s * 0.15, 0, Math.PI);
+        ctx.stroke();
     }
 
     isOffScreen() {
@@ -263,15 +752,8 @@ function update() {
 
 // Draw game
 function draw() {
-    // Clear canvas with gradient background
-    const gradient = ctx.createLinearGradient(0, 0, 0, CONFIG.CANVAS_HEIGHT);
-    gradient.addColorStop(0, '#87ceeb');
-    gradient.addColorStop(1, '#e0f6ff');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
-
-    // Draw clouds (decorative)
-    drawClouds();
+    // Draw background based on current animal
+    drawBackground();
 
     // Draw all animals
     for (let animal of gameState.animals) {
@@ -280,6 +762,92 @@ function draw() {
 
     // Draw net
     drawNet(gameState.netX, gameState.netY, CONFIG.NET_SIZE);
+}
+
+// Draw background based on current animal type
+function drawBackground() {
+    const gradient = ctx.createLinearGradient(0, 0, 0, CONFIG.CANVAS_HEIGHT);
+    
+    switch(gameState.currentAnimalType) {
+        case 'mice':
+            // Barn/farm setting - warm yellows and browns
+            gradient.addColorStop(0, '#FFD89B');
+            gradient.addColorStop(1, '#DEB887');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            break;
+        case 'butterflies':
+            // Garden - colorful flower field
+            gradient.addColorStop(0, '#87CEEB');
+            gradient.addColorStop(1, '#FFB6D9');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawFlowers();
+            break;
+        case 'cats':
+            // Cozy home - warm indoor colors
+            gradient.addColorStop(0, '#F5DEB3');
+            gradient.addColorStop(1, '#DEB887');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawIndoorElements();
+            break;
+        case 'dogs':
+            // Park - green grass and sky
+            gradient.addColorStop(0, '#87CEEB');
+            gradient.addColorStop(1, '#90EE90');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawParkElements();
+            break;
+        case 'fish':
+            // Underwater - blues and teals
+            gradient.addColorStop(0, '#20B2AA');
+            gradient.addColorStop(1, '#1E90FF');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawUnderwater();
+            break;
+        case 'crabs':
+            // Beach - sand and water
+            gradient.addColorStop(0, '#FFD700');
+            gradient.addColorStop(1, '#87CEEB');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawBeachElements();
+            break;
+        case 'fairies':
+            // Magical forest - purples and blues
+            gradient.addColorStop(0, '#9370DB');
+            gradient.addColorStop(1, '#DDA0DD');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawMagicalElements();
+            break;
+        case 'gnomes':
+            // Forest - greens and browns
+            gradient.addColorStop(0, '#228B22');
+            gradient.addColorStop(1, '#8B4513');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawForestElements();
+            break;
+        case 'frogs':
+            // Pond - water lily setting
+            gradient.addColorStop(0, '#4169E1');
+            gradient.addColorStop(1, '#00CED1');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawPondElements();
+            break;
+        default:
+            // Default sky
+            gradient.addColorStop(0, '#87ceeb');
+            gradient.addColorStop(1, '#e0f6ff');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawClouds();
+    }
 }
 
 // Draw decorative clouds
@@ -298,6 +866,160 @@ function drawClouds() {
     ctx.arc(CONFIG.CANVAS_WIDTH - 150, 150, 35, 0, Math.PI * 2);
     ctx.arc(CONFIG.CANVAS_WIDTH - 110, 140, 45, 0, Math.PI * 2);
     ctx.arc(CONFIG.CANVAS_WIDTH - 70, 155, 35, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Garden with flowers
+function drawFlowers() {
+    // Random flowers for garden setting
+    ctx.fillStyle = '#FF1493';
+    for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.arc(50 + i * 200, CONFIG.CANVAS_HEIGHT - 60, 25, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.fillStyle = '#228B22';
+    for (let i = 0; i < 3; i++) {
+        ctx.fillRect(65 + i * 200, CONFIG.CANVAS_HEIGHT - 60, 5, 40);
+    }
+}
+
+// Indoor elements for cat
+function drawIndoorElements() {
+    // Simple window
+    ctx.strokeStyle = '#8B4513';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(20, 20, 150, 100);
+    ctx.strokeStyle = '#8B4513';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(95, 20);
+    ctx.lineTo(95, 120);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(20, 70);
+    ctx.lineTo(170, 70);
+    ctx.stroke();
+    
+    // Picture on wall
+    ctx.fillStyle = '#FFB6C1';
+    ctx.fillRect(CONFIG.CANVAS_WIDTH - 100, 30, 80, 60);
+}
+
+// Park elements for dog
+function drawParkElements() {
+    // Simple tree
+    ctx.fillStyle = '#8B4513';
+    ctx.fillRect(CONFIG.CANVAS_WIDTH - 80, 200, 20, 80);
+    ctx.fillStyle = '#228B22';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 70, 180, 50, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Underwater elements for fish
+function drawUnderwater() {
+    // Water plants/seaweed
+    ctx.strokeStyle = '#90EE90';
+    ctx.lineWidth = 3;
+    for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(50 + i * 200, CONFIG.CANVAS_HEIGHT);
+        ctx.quadraticCurveTo(80 + i * 200, 150, 60 + i * 200, 0);
+        ctx.stroke();
+    }
+    
+    // Bubbles
+    ctx.fillStyle = 'rgba(173, 216, 230, 0.5)';
+    ctx.beginPath();
+    ctx.arc(100, 100, 15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 80, 200, 12, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Beach elements for crab
+function drawBeachElements() {
+    // Sand ripples
+    ctx.strokeStyle = 'rgba(210, 180, 140, 0.3)';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.arc(CONFIG.CANVAS_WIDTH / 2, CONFIG.CANVAS_HEIGHT - 30 - i * 40, 100 - i * 20, 0, Math.PI);
+        ctx.stroke();
+    }
+    
+    // Simple shell
+    ctx.fillStyle = '#FFB6C1';
+    ctx.beginPath();
+    ctx.arc(100, CONFIG.CANVAS_HEIGHT - 50, 20, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Magical elements for fairy
+function drawMagicalElements() {
+    // Sparkles
+    ctx.fillStyle = '#FFD700';
+    for (let i = 0; i < 5; i++) {
+        const x = 50 + i * 150;
+        const y = 80 + (i % 2) * 100;
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fill();
+        // Star lines
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x - 8, y);
+        ctx.lineTo(x + 8, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y - 8);
+        ctx.lineTo(x, y + 8);
+        ctx.stroke();
+    }
+}
+
+// Forest elements for gnome
+function drawForestElements() {
+    // Trees
+    for (let i = 0; i < 2; i++) {
+        ctx.fillStyle = '#654321';
+        ctx.fillRect(50 + i * (CONFIG.CANVAS_WIDTH - 100), 150, 15, 100);
+        ctx.fillStyle = '#006400';
+        ctx.beginPath();
+        ctx.arc(57.5 + i * (CONFIG.CANVAS_WIDTH - 100), 140, 35, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    // Mushrooms
+    ctx.fillStyle = '#FF6347';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH / 2 - 50, CONFIG.CANVAS_HEIGHT - 40, 15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#8B0000';
+    ctx.fillRect(CONFIG.CANVAS_WIDTH / 2 - 55, CONFIG.CANVAS_HEIGHT - 25, 10, 25);
+}
+
+// Pond elements for frog
+function drawPondElements() {
+    // Water lilies
+    ctx.fillStyle = '#90EE90';
+    ctx.beginPath();
+    ctx.arc(100, 100, 30, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 100, 250, 30, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Lily pads center
+    ctx.fillStyle = '#FFD700';
+    ctx.beginPath();
+    ctx.arc(100, 100, 15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 100, 250, 15, 0, Math.PI * 2);
     ctx.fill();
 }
 
