@@ -257,7 +257,9 @@ function handleAnswerInput(event) {
         gameState.correctAnswers++;
         gameState.waitingForNext = true;
         
-        showFeedback('✓ Correct! Great job!<br>Press SPACE for next question', 'correct');
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const nextMessage = isMobile ? 'Tap for next question' : 'Press SPACE for next question';
+        showFeedback(`✓ Correct! Great job!<br>${nextMessage}`, 'correct');
         
         // Check for level up
         if (gameState.correctAnswers % 5 === 0) {
