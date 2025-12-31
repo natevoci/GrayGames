@@ -219,6 +219,11 @@ const ANIMAL_TYPES = {
 const ANIMAL_KEYS = Object.keys(ANIMAL_TYPES);
 
 // Game state
+// Detect mobile/tablet devices
+const isMobileDevice = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
 let gameState = {
     level: 1,
     score: 0,
@@ -233,11 +238,13 @@ let gameState = {
     speedMultiplier: 1,
     isMouseDown: false,
     isSpacePressed: false,
+    isTouching: false,
     levelComplete: false,
     levelCompleteInputReceived: false,
     gameStarted: false,
     startupInputReceived: false,
-    allAnimalsMode: false
+    allAnimalsMode: false,
+    isMobile: isMobileDevice()
 };
 
 // Animal class
@@ -1684,6 +1691,35 @@ document.addEventListener('touchmove', (e) => {
     gameState.netX = Math.max(CONFIG.NET_SIZE / 2, Math.min(gameState.netX, CONFIG.CANVAS_WIDTH - CONFIG.NET_SIZE / 2));
     gameState.netY = Math.max(CONFIG.NET_SIZE / 2, Math.min(gameState.netY, CONFIG.CANVAS_HEIGHT - CONFIG.NET_SIZE / 2));
 }, { passive: false });
+
+// Handle touch start for mobile capturing
+document.addEventListener('touchstart', (e) => {
+    // Handle startup
+    if (!gameState.gameStarted && !gameState.startupInputReceived) {
+        gameState.startupInputReceived = true;
+    }
+    // Handle level complete
+    else if (gameState.levelComplete && !gameState.levelCompleteInputReceived) {
+        gameState.levelCompleteInputReceived = true;
+    } else {
+        gameState.isTouching = true;
+        catchAnimals();
+    }
+}, { passive: true });
+
+// Handle touch end
+document.addEventListener('touchend', (e) => {
+    gameState.isTouching = false;
+    
+    // Start game if startup input was received
+    if (!gameState.gameStarted && gameState.startupInputReceived) {
+        startGame();
+    }
+    // Advance level if new input was received
+    else if (gameState.levelComplete && gameState.levelCompleteInputReceived) {
+        advanceLevel();
+    }
+}, { passive: true });
 
 // Catch animals on click or spacebar
 function catchAnimals() {
