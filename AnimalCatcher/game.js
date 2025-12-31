@@ -28,6 +28,14 @@ const ANIMAL_TYPES = {
         points: 10,
         emoji: '🐭'
     },
+    ladybugs: {
+        name: 'Ladybugs',
+        color: '#FF0000',
+        size: 32,
+        speed: 1.6,
+        points: 13,
+        emoji: '🐞'
+    },
     butterflies: {
         name: 'Butterflies',
         color: '#FF69B4',
@@ -35,6 +43,15 @@ const ANIMAL_TYPES = {
         speed: 1.5,
         points: 15,
         emoji: '🦋',
+        wobble: true
+    },
+    dragonflies: {
+        name: 'Dragonflies',
+        color: '#00FF00',
+        size: 38,
+        speed: 2.4,
+        points: 17,
+        emoji: '🪰',
         wobble: true
     },
     cats: {
@@ -45,6 +62,14 @@ const ANIMAL_TYPES = {
         points: 20,
         emoji: '🐱'
     },
+    snails: {
+        name: 'Snails',
+        color: '#A0826D',
+        size: 36,
+        speed: 0.6,
+        points: 11,
+        emoji: '🐌'
+    },
     dogs: {
         name: 'Dogs',
         color: '#DAA520',
@@ -52,6 +77,15 @@ const ANIMAL_TYPES = {
         speed: 2.2,
         points: 25,
         emoji: '🐕'
+    },
+    fireflies: {
+        name: 'Fireflies',
+        color: '#FFD700',
+        size: 30,
+        speed: 1.5,
+        points: 16,
+        emoji: '🪲',
+        wobble: true
     },
     fish: {
         name: 'Fish',
@@ -62,6 +96,14 @@ const ANIMAL_TYPES = {
         emoji: '🐟',
         wobble: true
     },
+    koalas: {
+        name: 'Koalas',
+        color: '#808080',
+        size: 46,
+        speed: 1.1,
+        points: 21,
+        emoji: '🐨'
+    },
     crabs: {
         name: 'Crabs',
         color: '#FF4500',
@@ -69,6 +111,14 @@ const ANIMAL_TYPES = {
         speed: 1.4,
         points: 18,
         emoji: '🦀'
+    },
+    wombats: {
+        name: 'Wombats',
+        color: '#654321',
+        size: 44,
+        speed: 1.2,
+        points: 19,
+        emoji: '🐾'
     },
     fairies: {
         name: 'Fairies',
@@ -79,6 +129,15 @@ const ANIMAL_TYPES = {
         emoji: '🧚',
         wobble: true
     },
+    sugarGliders: {
+        name: 'Sugar Gliders',
+        color: '#E0E0E0',
+        size: 34,
+        speed: 2.2,
+        points: 20,
+        emoji: '🦘',
+        wobble: true
+    },
     gnomes: {
         name: 'Gnomes',
         color: '#228B22',
@@ -87,6 +146,22 @@ const ANIMAL_TYPES = {
         points: 16,
         emoji: '🧙'
     },
+    kookaburras: {
+        name: 'Kookaburras',
+        color: '#8B6F47',
+        size: 42,
+        speed: 1.7,
+        points: 18,
+        emoji: '🦅'
+    },
+    echidnas: {
+        name: 'Echidnas',
+        color: '#5C4033',
+        size: 40,
+        speed: 1.3,
+        points: 17,
+        emoji: '🦔'
+    },
     frogs: {
         name: 'Frogs',
         color: '#32CD32',
@@ -94,6 +169,15 @@ const ANIMAL_TYPES = {
         speed: 2,
         points: 14,
         emoji: '🐸'
+    },
+    rabbits: {
+        name: 'Rabbits',
+        color: '#FFF8DC',
+        size: 38,
+        speed: 2.3,
+        points: 19,
+        emoji: '🐰',
+        wobble: true
     }
 };
 
@@ -162,29 +246,59 @@ class Animal {
             case 'mice':
                 this.drawMouse();
                 break;
+            case 'ladybugs':
+                this.drawLadybug();
+                break;
             case 'butterflies':
                 this.drawButterfly();
+                break;
+            case 'dragonflies':
+                this.drawDragonfly();
                 break;
             case 'cats':
                 this.drawCat();
                 break;
+            case 'snails':
+                this.drawSnail();
+                break;
             case 'dogs':
                 this.drawDog();
+                break;
+            case 'fireflies':
+                this.drawFirefly();
                 break;
             case 'fish':
                 this.drawFish();
                 break;
+            case 'koalas':
+                this.drawKoala();
+                break;
             case 'crabs':
                 this.drawCrab();
+                break;
+            case 'wombats':
+                this.drawWombat();
                 break;
             case 'fairies':
                 this.drawFairy();
                 break;
+            case 'sugarGliders':
+                this.drawSugarGlider();
+                break;
             case 'gnomes':
                 this.drawGnome();
                 break;
+            case 'kookaburras':
+                this.drawKookaburra();
+                break;
+            case 'echidnas':
+                this.drawEchidna();
+                break;
             case 'frogs':
                 this.drawFrog();
+                break;
+            case 'rabbits':
+                this.drawRabbit();
                 break;
         }
         
@@ -238,6 +352,65 @@ class Animal {
         ctx.stroke();
     }
 
+    drawLadybug() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#FF0000';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#FF0000';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.4, s * 0.25, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(-s * 0.08, -s * 0.45, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.08, -s * 0.45, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Black pupils
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.08, -s * 0.45, s * 0.04, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.08, -s * 0.45, s * 0.04, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Middle line
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, -s * 0.2);
+        ctx.lineTo(0, s * 0.4);
+        ctx.stroke();
+        
+        // Black spots
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.25, -s * 0.1, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.25, -s * 0.1, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(-s * 0.25, s * 0.1, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.25, s * 0.1, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(0, s * 0.25, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
     drawButterfly() {
         const s = this.config.size;
         // Body
@@ -279,6 +452,350 @@ class Animal {
         ctx.moveTo(s * 0.05, -s * 0.3);
         ctx.quadraticCurveTo(s * 0.2, -s * 0.5, s * 0.25, -s * 0.6);
         ctx.stroke();
+    }
+
+    drawDragonfly() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#00FF00';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s * 0.18, s * 0.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Wings
+        ctx.fillStyle = 'rgba(173, 216, 230, 0.6)';
+        // Top left wing
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.4, -s * 0.15, s * 0.25, s * 0.35, -0.2, 0, Math.PI * 2);
+        ctx.fill();
+        // Top right wing
+        ctx.beginPath();
+        ctx.ellipse(s * 0.4, -s * 0.15, s * 0.25, s * 0.35, 0.2, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Bottom wings
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, s * 0.15, s * 0.2, s * 0.3, 0.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, s * 0.15, s * 0.2, s * 0.3, -0.2, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#00DD00';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.35, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.08, -s * 0.4, s * 0.06, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.08, -s * 0.4, s * 0.06, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawSnail() {
+        const s = this.config.size;
+        // Shell - spiral
+        ctx.fillStyle = '#A0826D';
+        ctx.beginPath();
+        ctx.arc(-s * 0.15, -s * 0.1, s * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Shell spiral lines
+        ctx.strokeStyle = '#8B6F47';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(-s * 0.15, -s * 0.1, s * 0.3, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(-s * 0.15, -s * 0.1, s * 0.2, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // Body
+        ctx.fillStyle = '#CD853F';
+        ctx.beginPath();
+        ctx.ellipse(s * 0.1, s * 0.1, s * 0.3, s * 0.35, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#CD853F';
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.25, s * 0.2, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes on stalks
+        ctx.strokeStyle = '#CD853F';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s * 0.1, -s * 0.35);
+        ctx.lineTo(s * 0.05, -s * 0.5);
+        ctx.stroke();
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.05, -s * 0.5, s * 0.06, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawFirefly() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#333333';
+        ctx.beginPath();
+        ctx.ellipse(0, -s * 0.05, s * 0.35, s * 0.4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Glowing abdomen
+        ctx.fillStyle = '#FFD700';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.2, s * 0.3, s * 0.25, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Glow effect
+        ctx.fillStyle = 'rgba(255, 215, 0, 0.4)';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.2, s * 0.4, s * 0.35, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Wings
+        ctx.fillStyle = 'rgba(200, 200, 200, 0.5)';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.25, -s * 0.1, s * 0.2, s * 0.3, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.25, -s * 0.1, s * 0.2, s * 0.3, 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#333333';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.35, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawKoala() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#808080';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.1, s * 0.5, s * 0.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#808080';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.3, s * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Ears
+        ctx.fillStyle = '#808080';
+        ctx.beginPath();
+        ctx.arc(-s * 0.3, -s * 0.55, s * 0.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.55, s * 0.2, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Ear inner
+        ctx.fillStyle = '#A9A9A9';
+        ctx.beginPath();
+        ctx.arc(-s * 0.3, -s * 0.55, s * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.55, s * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Face markings
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(-s * 0.15, -s * 0.3, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.3, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.15, -s * 0.3, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.3, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.1, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawWombat() {
+        const s = this.config.size;
+        // Body (stocky)
+        ctx.fillStyle = '#654321';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.05, s * 0.55, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#654321';
+        ctx.beginPath();
+        ctx.arc(s * 0.25, -s * 0.2, s * 0.35, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Ears
+        ctx.fillStyle = '#654321';
+        ctx.beginPath();
+        ctx.arc(s * 0.05, -s * 0.5, s * 0.12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.45, -s * 0.5, s * 0.12, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.25, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.35, -s * 0.25, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.3, -s * 0.05, s * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawSugarGlider() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#E0E0E0';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s * 0.4, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#E0E0E0';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.35, s * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Ears
+        ctx.fillStyle = '#E0E0E0';
+        ctx.beginPath();
+        ctx.arc(-s * 0.25, -s * 0.5, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.25, -s * 0.5, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Gliding membrane
+        ctx.fillStyle = 'rgba(224, 224, 224, 0.7)';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.35, 0, s * 0.2, s * 0.35, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, 0, s * 0.2, s * 0.35, 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.12, -s * 0.35, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.12, -s * 0.35, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = '#FF69B4';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.15, s * 0.06, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawKookaburra() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#8B6F47';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.1, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#8B6F47';
+        ctx.beginPath();
+        ctx.arc(s * 0.25, -s * 0.2, s * 0.35, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Beak
+        ctx.fillStyle = '#FFB90F';
+        ctx.beginPath();
+        ctx.moveTo(s * 0.5, -s * 0.15);
+        ctx.lineTo(s * 0.85, -s * 0.2);
+        ctx.lineTo(s * 0.5, -s * 0.05);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(s * 0.2, -s * 0.3, s * 0.12, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.2, -s * 0.3, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Wings
+        ctx.fillStyle = '#6B5638';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.25, 0, s * 0.3, s * 0.35, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawEchidna() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#5C4033';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Spikes on back
+        ctx.strokeStyle = '#5C4033';
+        ctx.lineWidth = 3;
+        for (let i = 0; i < 5; i++) {
+            const angle = (i - 2) * 0.3;
+            ctx.beginPath();
+            ctx.moveTo(Math.cos(angle) * s * 0.3, Math.sin(angle) * s * 0.35 - s * 0.3);
+            ctx.lineTo(Math.cos(angle) * s * 0.35, Math.sin(angle) * s * 0.45 - s * 0.5);
+            ctx.stroke();
+        }
+        
+        // Head
+        ctx.fillStyle = '#5C4033';
+        ctx.beginPath();
+        ctx.arc(s * 0.25, -s * 0.3, s * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Long snout
+        ctx.fillStyle = '#6B5344';
+        ctx.beginPath();
+        ctx.ellipse(s * 0.45, -s * 0.2, s * 0.2, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.15, -s * 0.35, s * 0.07, 0, Math.PI * 2);
+        ctx.fill();
     }
 
     drawCat() {
@@ -673,6 +1190,60 @@ class Animal {
         ctx.stroke();
     }
 
+    drawRabbit() {
+        const s = this.config.size;
+        // Body
+        ctx.fillStyle = '#FFF8DC';
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.05, s * 0.45, s * 0.4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = '#FFF8DC';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.35, s * 0.32, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Long ears
+        ctx.fillStyle = '#FFF8DC';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.15, -s * 0.65, s * 0.12, s * 0.35, -0.1, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.15, -s * 0.65, s * 0.12, s * 0.35, 0.1, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Inner ear
+        ctx.fillStyle = '#FFB6C1';
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.15, -s * 0.65, s * 0.06, s * 0.25, -0.1, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(s * 0.15, -s * 0.65, s * 0.06, s * 0.25, 0.1, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(-s * 0.12, -s * 0.35, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.12, -s * 0.35, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Nose
+        ctx.fillStyle = '#FFB6C1';
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.15, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Tail (cotton)
+        ctx.fillStyle = '#FFF8DC';
+        ctx.beginPath();
+        ctx.arc(-s * 0.4, s * 0.35, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
     isOffScreen() {
         // Don't remove off-screen animals - they wrap to the opposite side
         return false;
@@ -775,6 +1346,15 @@ function drawBackground() {
             gradient.addColorStop(1, '#DEB887');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawCheese();
+            break;
+        case 'ladybugs':
+            // Garden - green grass with flowers
+            gradient.addColorStop(0, '#87CEEB');
+            gradient.addColorStop(1, '#90EE90');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawGardenElements();
             break;
         case 'butterflies':
             // Garden - colorful flower field
@@ -784,6 +1364,14 @@ function drawBackground() {
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawFlowers();
             break;
+        case 'dragonflies':
+            // Pond/water setting
+            gradient.addColorStop(0, '#87CEEB');
+            gradient.addColorStop(1, '#4169E1');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawPondElements();
+            break;
         case 'cats':
             // Cozy home - warm indoor colors
             gradient.addColorStop(0, '#F5DEB3');
@@ -791,6 +1379,14 @@ function drawBackground() {
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawIndoorElements();
+            break;
+        case 'snails':
+            // Garden ground/damp setting
+            gradient.addColorStop(0, '#90EE90');
+            gradient.addColorStop(1, '#8B8B7A');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawGardenGround();
             break;
         case 'dogs':
             // Park - green grass and sky
@@ -800,6 +1396,14 @@ function drawBackground() {
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawParkElements();
             break;
+        case 'fireflies':
+            // Night sky setting
+            gradient.addColorStop(0, '#001a4d');
+            gradient.addColorStop(1, '#003d99');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawNightSky();
+            break;
         case 'fish':
             // Underwater - blues and teals
             gradient.addColorStop(0, '#20B2AA');
@@ -807,6 +1411,14 @@ function drawBackground() {
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawUnderwater();
+            break;
+        case 'koalas':
+            // Australian eucalyptus forest
+            gradient.addColorStop(0, '#90EE90');
+            gradient.addColorStop(1, '#228B22');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawEucalyptusForest();
             break;
         case 'crabs':
             // Beach - sand and water
@@ -816,6 +1428,14 @@ function drawBackground() {
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawBeachElements();
             break;
+        case 'wombats':
+            // Australian outback
+            gradient.addColorStop(0, '#DAA520');
+            gradient.addColorStop(1, '#8B4513');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawOutback();
+            break;
         case 'fairies':
             // Magical forest - purples and blues
             gradient.addColorStop(0, '#9370DB');
@@ -823,6 +1443,14 @@ function drawBackground() {
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawMagicalElements();
+            break;
+        case 'sugarGliders':
+            // Eucalyptus night forest
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(1, '#16213e');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawNightForest();
             break;
         case 'gnomes':
             // Forest - greens and browns
@@ -832,13 +1460,37 @@ function drawBackground() {
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawForestElements();
             break;
+        case 'kookaburras':
+            // Australian bushland
+            gradient.addColorStop(0, '#87CEEB');
+            gradient.addColorStop(1, '#DAA520');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawBushland();
+            break;
+        case 'echidnas':
+            // Desert/bush setting
+            gradient.addColorStop(0, '#FFE4B5');
+            gradient.addColorStop(1, '#DAA520');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawDesertBush();
+            break;
         case 'frogs':
-            // Pond - water lily setting
+            // Pond - water lily setting (original)
             gradient.addColorStop(0, '#4169E1');
             gradient.addColorStop(1, '#00CED1');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
             drawPondElements();
+            break;
+        case 'rabbits':
+            // Meadow/grassland
+            gradient.addColorStop(0, '#87CEEB');
+            gradient.addColorStop(1, '#90EE90');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+            drawMeadow();
             break;
         default:
             // Default sky
@@ -869,6 +1521,27 @@ function drawClouds() {
     ctx.fill();
 }
 
+// Garden elements for ladybugs
+function drawGardenElements() {
+    // Grass blades
+    ctx.strokeStyle = '#90EE90';
+    ctx.lineWidth = 3;
+    for (let i = 0; i < 8; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * CONFIG.CANVAS_WIDTH / 8, CONFIG.CANVAS_HEIGHT);
+        ctx.quadraticCurveTo(i * CONFIG.CANVAS_WIDTH / 8 + 10, CONFIG.CANVAS_HEIGHT - 50, i * CONFIG.CANVAS_WIDTH / 8, CONFIG.CANVAS_HEIGHT - 100);
+        ctx.stroke();
+    }
+    
+    // Flowers
+    ctx.fillStyle = '#FF1493';
+    for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.arc(100 + i * 200, CONFIG.CANVAS_HEIGHT - 60, 20, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
 // Garden with flowers
 function drawFlowers() {
     // Random flowers for garden setting
@@ -882,6 +1555,52 @@ function drawFlowers() {
     for (let i = 0; i < 3; i++) {
         ctx.fillRect(65 + i * 200, CONFIG.CANVAS_HEIGHT - 60, 5, 40);
     }
+}
+
+// Cheese blocks for mice
+function drawCheese() {
+    // Draw three pieces of cheese scattered around
+    ctx.fillStyle = '#FFD700';
+    
+    // Cheese piece 1 - top left
+    ctx.fillRect(50, 80, 60, 50);
+    // Add holes
+    ctx.fillStyle = '#FFA500';
+    ctx.beginPath();
+    ctx.arc(65, 90, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(85, 110, 6, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Cheese piece 2 - top right
+    ctx.fillStyle = '#FFD700';
+    ctx.beginPath();
+    ctx.moveTo(CONFIG.CANVAS_WIDTH - 100, 100);
+    ctx.lineTo(CONFIG.CANVAS_WIDTH - 40, 100);
+    ctx.lineTo(CONFIG.CANVAS_WIDTH - 50, 140);
+    ctx.lineTo(CONFIG.CANVAS_WIDTH - 110, 140);
+    ctx.fill();
+    // Add holes
+    ctx.fillStyle = '#FFA500';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 80, 110, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 60, 125, 5, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Cheese piece 3 - bottom center
+    ctx.fillStyle = '#FFD700';
+    ctx.fillRect(CONFIG.CANVAS_WIDTH / 2 - 40, CONFIG.CANVAS_HEIGHT - 80, 70, 45);
+    // Add holes
+    ctx.fillStyle = '#FFA500';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH / 2 - 20, CONFIG.CANVAS_HEIGHT - 65, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH / 2 + 10, CONFIG.CANVAS_HEIGHT - 50, 6, 0, Math.PI * 2);
+    ctx.fill();
 }
 
 // Indoor elements for cat
@@ -1020,6 +1739,158 @@ function drawPondElements() {
     ctx.fill();
     ctx.beginPath();
     ctx.arc(CONFIG.CANVAS_WIDTH - 100, 250, 15, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Garden ground for snails
+function drawGardenGround() {
+    // Rocks
+    ctx.fillStyle = '#696969';
+    ctx.beginPath();
+    ctx.arc(80, CONFIG.CANVAS_HEIGHT - 40, 25, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 80, CONFIG.CANVAS_HEIGHT - 50, 30, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Leaves
+    ctx.fillStyle = '#228B22';
+    ctx.beginPath();
+    ctx.ellipse(150, CONFIG.CANVAS_HEIGHT - 60, 40, 20, 0.3, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Night sky for fireflies
+function drawNightSky() {
+    // Stars
+    ctx.fillStyle = '#FFFF00';
+    for (let i = 0; i < 20; i++) {
+        const x = Math.random() * CONFIG.CANVAS_WIDTH;
+        const y = Math.random() * CONFIG.CANVAS_HEIGHT * 0.6;
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    // Moon
+    ctx.fillStyle = '#FFFACD';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 60, 60, 40, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Eucalyptus forest for koalas
+function drawEucalyptusForest() {
+    // Eucalyptus trees
+    ctx.fillStyle = '#654321';
+    ctx.fillRect(50, 150, 20, 150);
+    ctx.fillStyle = '#228B22';
+    ctx.beginPath();
+    ctx.arc(60, 140, 60, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = '#654321';
+    ctx.fillRect(CONFIG.CANVAS_WIDTH - 70, 180, 20, 120);
+    ctx.fillStyle = '#228B22';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 60, 170, 50, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Outback for wombats
+function drawOutback() {
+    // Desert brush
+    ctx.fillStyle = '#8B7355';
+    ctx.beginPath();
+    ctx.arc(150, CONFIG.CANVAS_HEIGHT - 80, 40, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 150, CONFIG.CANVAS_HEIGHT - 70, 35, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Night forest for sugar gliders
+function drawNightForest() {
+    // Trees silhouettes
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(50, 100, 30, 200);
+    ctx.beginPath();
+    ctx.arc(65, 80, 50, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillRect(CONFIG.CANVAS_WIDTH - 80, 120, 30, 180);
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 65, 100, 45, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Moon
+    ctx.fillStyle = '#FFFACD';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 60, 50, 35, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Bushland for kookaburras
+function drawBushland() {
+    // Bushes
+    ctx.fillStyle = '#8B7355';
+    ctx.beginPath();
+    ctx.ellipse(150, CONFIG.CANVAS_HEIGHT - 80, 50, 40, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(CONFIG.CANVAS_WIDTH - 150, CONFIG.CANVAS_HEIGHT - 90, 60, 50, 0, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Branch
+    ctx.strokeStyle = '#654321';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(80, 100);
+    ctx.lineTo(150, 80);
+    ctx.stroke();
+}
+
+// Desert bush for echidnas
+function drawDesertBush() {
+    // Bush vegetation
+    ctx.fillStyle = '#696969';
+    ctx.beginPath();
+    ctx.arc(100, CONFIG.CANVAS_HEIGHT - 100, 50, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = '#556B2F';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 100, CONFIG.CANVAS_HEIGHT - 120, 55, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Rocks
+    ctx.fillStyle = '#8B7355';
+    ctx.beginPath();
+    ctx.arc(200, CONFIG.CANVAS_HEIGHT - 60, 25, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Meadow for rabbits
+function drawMeadow() {
+    // Tall grass
+    ctx.strokeStyle = '#90EE90';
+    ctx.lineWidth = 4;
+    for (let i = 0; i < 12; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * CONFIG.CANVAS_WIDTH / 12, CONFIG.CANVAS_HEIGHT);
+        ctx.quadraticCurveTo(i * CONFIG.CANVAS_WIDTH / 12 + 15, CONFIG.CANVAS_HEIGHT - 80, i * CONFIG.CANVAS_WIDTH / 12, CONFIG.CANVAS_HEIGHT - 160);
+        ctx.stroke();
+    }
+    
+    // Wildflowers
+    ctx.fillStyle = '#FF69B4';
+    ctx.beginPath();
+    ctx.arc(80, CONFIG.CANVAS_HEIGHT - 100, 12, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = '#FFD700';
+    ctx.beginPath();
+    ctx.arc(CONFIG.CANVAS_WIDTH - 100, CONFIG.CANVAS_HEIGHT - 120, 14, 0, Math.PI * 2);
     ctx.fill();
 }
 
