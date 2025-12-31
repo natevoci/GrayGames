@@ -1690,7 +1690,7 @@ document.addEventListener('touchstart', (e) => {
     // AND at least 0.5 seconds have passed since level completed
     else if (wasLevelCompleteAtStart && !gameState.levelCompleteInputReceived) {
         const timeSinceLevelComplete = Date.now() - gameState.levelCompleteTime;
-        if (timeSinceLevelComplete >= 500) {
+        if (timeSinceLevelComplete >= 1500) {
             gameState.levelCompleteInputReceived = true;
         }
     } else if (e.target === canvas) {
