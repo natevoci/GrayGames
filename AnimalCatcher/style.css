@@ -1,0 +1,338 @@
+/* ===================================
+   ANIMAL CATCHER - Styles
+   Bright, friendly, rounded design
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Control Panel */
+.controls {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Control Buttons */
+.control-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+.btn-secondary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Speed Control */
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.slider {
+    width: 120px;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: 3px solid #667eea;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: 3px solid #667eea;
+}
+
+.speed-value {
+    font-weight: bold;
+    color: #667eea;
+    min-width: 30px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.control-item .label {
+    color: #555;
+}
+
+.control-item .value {
+    color: #667eea;
+    font-size: 24px;
+    min-width: 60px;
+}
+
+.animal-name {
+    color: #ff6b6b;
+    font-size: 22px;
+    font-style: italic;
+}
+
+/* Game Area */
+.game-area {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(180deg, #87ceeb 0%, #e0f6ff 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+#gameCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: none;
+    display: block;
+}
+
+/* Level Complete Popup */
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: white;
+    border-radius: 30px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+}
+
+.popup-content h2 {
+    font-size: 36px;
+    color: #667eea;
+    margin-bottom: 15px;
+    font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+}
+
+.popup-content p {
+    font-size: 24px;
+    color: #333;
+    margin: 10px 0;
+    font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+}
+
+.popup-hint {
+    font-size: 16px;
+    color: #999;
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* Instructions */
+.instructions {
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .controls {
+        padding: 12px 15px;
+        gap: 15px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .slider {
+        width: 80px;
+    }
+
+    .control-item {
+        font-size: 16px;
+    }
+
+    .control-item .value {
+        font-size: 18px;
+    }
+
+    .animal-name {
+        font-size: 18px;
+    }
+
+    .instructions {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .controls {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .control-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        flex: 1;
+        min-width: 70px;
+    }
+
+    .speed-control {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .slider {
+        width: 100px;
+    }
+
+    .control-item {
+        font-size: 14px;
+    }
+
+    .control-item .value {
+        font-size: 16px;
+        min-width: 50px;
+    }
+
+    .animal-name {
+        font-size: 16px;
+    }
+
+    .instructions {
+        font-size: 12px;
+    }
+}
+
+/* Smooth animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}

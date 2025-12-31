@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Catcher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <!-- Game control buttons -->
+            <div class="control-buttons">
+                <button id="startBtn" class="btn btn-primary">Start</button>
+                <button id="pauseBtn" class="btn btn-secondary" disabled>Pause</button>
+                <button id="resumeBtn" class="btn btn-secondary" disabled>Resume</button>
+            </div>
+
+            <!-- Speed control -->
+            <div class="control-item speed-control">
+                <span class="label">Speed:</span>
+                <div class="slider-container">
+                    <input type="range" id="speedSlider" min="0.5" max="2" step="0.25" value="1" class="slider">
+                    <span id="speedDisplay" class="speed-value">1x</span>
+                </div>
+            </div>
+
+            <!-- Game stats -->
+            <div class="control-item">
+                <span class="label">Level:</span>
+                <span id="levelDisplay" class="value">1</span>
+            </div>
+            <div class="control-item">
+                <span class="label">Caught:</span>
+                <span id="caughtDisplay" class="value">0/20</span>
+            </div>
+            <div class="control-item">
+                <span class="label">Score:</span>
+                <span id="scoreDisplay" class="value">0</span>
+            </div>
+            <div class="control-item">
+                <span id="animalNameDisplay" class="animal-name">Mice</span>
+            </div>
+        </div>
+
+        <div class="game-area" id="gameArea">
+            <canvas id="gameCanvas"></canvas>
+            <div id="levelCompletePopup" class="popup hidden">
+                <div class="popup-content">
+                    <h2>Congratulations!</h2>
+                    <p id="popupMessage">You caught all the mice.</p>
+                    <p class="popup-hint">Press Space or Click to continue</p>
+                </div>
+            </div>
+            <div id="startupPopup" class="popup hidden">
+                <div class="popup-content">
+                    <h2>Animal Catcher</h2>
+                    <p id="startupMessage">Try to catch all the mice.</p>
+                    <p class="popup-hint">Press Space or Click to begin</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <p>Move your mouse to control the net. Click or press Space to catch! 🎉</p>
+        </div>
+    </div>
+
+    <!-- Audio elements for sound effects -->
+    <audio id="catchSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj==" type="audio/wav">
+    </audio>
+    <audio id="levelUpSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBg==" type="audio/wav">
+    </audio>
+    <audio id="ambientMusic" preload="auto" loop>
+        <source src="data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==" type="audio/wav">
+    </audio>
+
+    <script src="game.js"></script>
+</body>
+</html>
