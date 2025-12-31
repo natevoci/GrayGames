@@ -954,63 +954,89 @@ class Animal {
     drawEchidna() {
         const s = this.config.size;
         const legWalk = Math.sin(this.animationTime) * 2;
-        const spikeMove = Math.sin(this.animationTime * 0.8) * 0.08;
         
-        // Body
-        ctx.fillStyle = '#5C4033';
+        const bodyRadiusX = s * 0.5;
+        const bodyRadiusY = s * 0.3;
+        const bodyCenterY = s * 0.05;
+
+        // Body - more rounded and compact
+        ctx.fillStyle = '#6B5344';
         ctx.beginPath();
-        ctx.ellipse(0, 0, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, bodyCenterY, bodyRadiusX, bodyRadiusY, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Spikes on back - moving
-        ctx.strokeStyle = '#5C4033';
-        ctx.lineWidth = 3;
-        for (let i = 0; i < 5; i++) {
-            const angle = (i - 2) * 0.3 + spikeMove;
-            const spikeLength = 0.5 + Math.sin(this.animationTime * 1.2 + i * 0.5) * 0.1;
+        // Spikes on back - radiating outward from body
+        ctx.strokeStyle = '#4a3228';
+        ctx.lineWidth = 2.5;
+        
+        for (let i = 0; i < 8; i++) {
+            // Distribute spikes across the top of the body
+            const spikeAngle = -Math.PI + (i / 7) * Math.PI; // From -π to 0 (top half)
+            
+            // Calculate position on body circumference
+            const xPos = Math.cos(spikeAngle) * bodyRadiusX;
+            const baseY = bodyCenterY + Math.sin(spikeAngle) * bodyRadiusY;
+            
+            const spikeLength = s * 0.35;
+            // Spike points outward from the body
+            const angle = spikeAngle - Math.PI * 0.5;
+            
             ctx.beginPath();
-            ctx.moveTo(Math.cos(angle) * s * 0.3, Math.sin(angle) * s * 0.35 - s * 0.3);
-            ctx.lineTo(Math.cos(angle) * s * 0.35, Math.sin(angle) * s * 0.45 * spikeLength - s * 0.5);
+            ctx.moveTo(xPos, baseY);
+            ctx.lineTo(xPos + Math.cos(angle) * spikeLength, 
+                       baseY + Math.sin(angle) * spikeLength);
             ctx.stroke();
         }
         
-        // Head
-        ctx.fillStyle = '#5C4033';
-        ctx.beginPath();
-        ctx.arc(s * 0.25, -s * 0.3, s * 0.3, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Long snout
+        // Head - positioned forward
         ctx.fillStyle = '#6B5344';
         ctx.beginPath();
-        ctx.ellipse(s * 0.45, -s * 0.2, s * 0.2, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.arc(s * 0.6, s * 0.1, s * 0.15, 0, Math.PI * 2);
         ctx.fill();
         
-        // Eyes
+        // // Long snout - more prominent and pointed
+        // ctx.fillStyle = '#7A6350';
+        // ctx.beginPath();
+        // ctx.ellipse(s * 0.75, s * 0.2, s * 0.18, s * 0.12, 0, 0, Math.PI * 2);
+        // ctx.fill();
+        
+        // Snout tip - pointed
+        ctx.fillStyle = '#8B7355';
+        ctx.beginPath();
+        ctx.arc(s * 0.78, s * 0.2, s * 0.06, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eye
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(s * 0.15, -s * 0.35, s * 0.07, 0, Math.PI * 2);
+        ctx.arc(s * 0.6, s * 0.10, s * 0.04, 0, Math.PI * 2);
         ctx.fill();
         
-        // Front left leg - walking
+        // Eye shine
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(s * 0.62, s * 0.08, s * 0.02, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Front left leg - short and sturdy
         ctx.fillStyle = '#4a3228';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.3, s * 0.35 + legWalk, s * 0.1, s * 0.18, 0, 0, Math.PI * 2);
+        ctx.ellipse(-s * 0.45, s * 0.38 + legWalk * 0.5, s * 0.11, s * 0.16, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Front right leg - walking opposite
+        // Front right leg - short and sturdy
         ctx.beginPath();
-        ctx.ellipse(s * 0.1, s * 0.35 - legWalk, s * 0.1, s * 0.18, 0, 0, Math.PI * 2);
+        ctx.ellipse(-s * 0.35, s * 0.38 - legWalk * 0.5, s * 0.11, s * 0.16, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Back left leg
         ctx.beginPath();
-        ctx.ellipse(-s * 0.35, s * 0.45 - legWalk, s * 0.09, s * 0.16, 0, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.3, s * 0.38 - legWalk * 0.5, s * 0.1, s * 0.15, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Back right leg
         ctx.beginPath();
-        ctx.ellipse(s * 0.05, s * 0.45 + legWalk, s * 0.09, s * 0.16, 0, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.4, s * 0.38 + legWalk * 0.5, s * 0.1, s * 0.15, 0, 0, Math.PI * 2);
         ctx.fill();
     }
 
