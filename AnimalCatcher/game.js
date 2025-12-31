@@ -46,77 +46,59 @@ const CONFIG = {
 const ANIMAL_TYPES = {
     snails: {
         name: 'Snails',
-        color: '#A0826D',
         size: 36,
         speed: 0.6,
-        points: 11,
-        emoji: '🐌'
+        points: 11
     },
     koalas: {
         name: 'Koalas',
-        color: '#808080',
         size: 46,
         speed: 1.1,
-        points: 21,
-        emoji: '🐨'
+        points: 21
     },
     gnomes: {
         name: 'Gnomes',
-        color: '#228B22',
         size: 44,
         speed: 1.2,
-        points: 16,
-        emoji: '🧙'
+        points: 16
     },
     wombats: {
         name: 'Wombats',
-        color: '#654321',
         size: 44,
         speed: 1.2,
-        points: 19,
-        emoji: '🐾'
+        points: 19
     },
     fairies: {
         name: 'Fairies',
-        color: '#FFD700',
         size: 36,
         speed: 1.3,
         points: 22,
-        emoji: '🧚',
         wobble: true
     },
     echidnas: {
         name: 'Echidnas',
-        color: '#5C4033',
         size: 40,
         speed: 1.3,
-        points: 17,
-        emoji: '🦔'
+        points: 17
     },
     butterflies: {
         name: 'Butterflies',
-        color: '#FF69B4',
         size: 40,
         speed: 1.3,
         points: 15,
-        emoji: '🦋',
         wobble: true
     },
     crabs: {
         name: 'Crabs',
-        color: '#FF4500',
         size: 42,
         speed: 1.4,
-        points: 18,
-        emoji: '🦀'
+        points: 18
     },
     fireflies: {
         name: 'Fireflies',
-        color: '#FFD700',
         size: 30,
         speed: 1.5,
         points: 16,
-        emoji: '🪲',
         wobble: true
     },
     fish: {
@@ -124,93 +106,69 @@ const ANIMAL_TYPES = {
         size: 38,
         speed: 1.6,
         points: 12,
-        emoji: '🐟',
         wobble: true
     },
     ladybugs: {
         name: 'Ladybugs',
-        color: '#FF0000',
         size: 32,
         speed: 1.6,
-        points: 13,
-        emoji: '🐞'
+        points: 13
     },
     kookaburras: {
         name: 'Kookaburras',
-        color: '#8B6F47',
         size: 42,
         speed: 1.7,
-        points: 18,
-        emoji: '🦅'
+        points: 18
     },
     ants: {
         name: 'Ants',
-        color: '#8B4513',
         size: 28,
         speed: 1.5,
-        points: 8,
-        emoji: '🐜'
+        points: 8
     },
     cats: {
         name: 'Cats',
-        color: '#FF8C00',
         size: 45,
         speed: 1.8,
-        points: 20,
-        emoji: '🐱'
+        points: 20
     },
     mice: {
         name: 'Mice',
-        color: '#8B4513',
         size: 35,
         speed: 2,
-        points: 10,
-        emoji: '🐭'
+        points: 10
     },
     sugarGliders: {
         name: 'Sugar Gliders',
-        color: '#E0E0E0',
         size: 34,
         speed: 2.2,
         points: 20,
-        emoji: '🦘',
         wobble: true
     },
     dogs: {
         name: 'Dogs',
-        color: '#DAA520',
         size: 48,
         speed: 2.2,
-        points: 25,
-        emoji: '🐕'
+        points: 25
     },
     dragonflies: {
         name: 'Dragonflies',
-        color: '#00FF00',
         size: 38,
         speed: 2.4,
         points: 17,
-        emoji: '🪰',
         wobble: true
     },
-
-
-
     frogs: {
         name: 'Frogs',
-        color: '#32CD32',
         size: 40,
         speed: 0,
-        points: 14,
-        emoji: '🐸'
+        points: 14
     },
     rabbits: {
         name: 'Rabbits',
-        color: '#FFF8DC',
         size: 38,
         speed: 2.3,
         points: 19,
-        emoji: '🐰',
         wobble: true
     }
 };
