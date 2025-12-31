@@ -121,7 +121,6 @@ const ANIMAL_TYPES = {
     },
     fish: {
         name: 'Fish',
-        color: '#00CED1',
         size: 38,
         speed: 1.6,
         points: 12,
@@ -228,7 +227,7 @@ let gameState = {
     level: 1,
     score: 0,
     caughtThisLevel: 0,
-    currentAnimalType: 'snails',
+    currentAnimalType: 'fish',
     animals: [],
     totalAnimalsSpawned: 0,
     netX: CONFIG.CANVAS_WIDTH / 2,
@@ -1210,27 +1209,28 @@ class Animal {
         const s = this.config.size;
         const tailWag = Math.sin(this.animationTime * 2) * 0.2;
         const finMove = Math.sin(this.animationTime) * 0.15;
+
+        // Top fin
+        ctx.fillStyle = '#A9A9A9';
+        ctx.beginPath();
+        ctx.ellipse(0, -s * (0.25 + finMove * 0.5), s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Bottom fin
+        ctx.fillStyle = '#A9A9A9';
+        ctx.beginPath();
+        ctx.ellipse(0, s * (0.25 + finMove * 0.5), s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
+        ctx.fill();
         
         // Body
-        ctx.fillStyle = '#00CED1';
+        ctx.fillStyle = '#C0C0C0';
         ctx.beginPath();
         ctx.ellipse(0, 0, s * 0.5, s * 0.35, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Top fin
-        ctx.fillStyle = '#20B2AA';
-        ctx.beginPath();
-        ctx.ellipse(0, -s * (0.35 + finMove), s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Bottom fin
-        ctx.fillStyle = '#20B2AA';
-        ctx.beginPath();
-        ctx.ellipse(0, s * (0.35 + finMove), s * 0.25, s * 0.2, 0, 0, Math.PI * 2);
-        ctx.fill();
         
         // Tail fin - wagging
-        ctx.fillStyle = '#00CED1';
+        ctx.fillStyle = '#C0C0C0';
         ctx.beginPath();
         ctx.moveTo(-s * 0.5, -s * 0.2);
         ctx.lineTo(-s * (0.8 + tailWag), -s * (0.35 + tailWag * 0.5));
