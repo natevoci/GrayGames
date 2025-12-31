@@ -142,6 +142,7 @@ function setupEventListeners() {
     document.getElementById('answerInput').addEventListener('input', handleAnswerInput);
     document.getElementById('hintBtn').addEventListener('click', handleHintButton);
     document.addEventListener('keydown', handleSpaceBar);
+    document.addEventListener('touchend', handleTapToNextQuestion);
 }
 
 // Start the game
@@ -288,6 +289,15 @@ function clearFeedback() {
 function handleSpaceBar(event) {
     if (event.code === 'Space' && gameState.waitingForNext) {
         event.preventDefault();
+        gameState.waitingForNext = false;
+        document.getElementById('answerInput').disabled = false;
+        loadNextQuestion();
+    }
+}
+
+// Handle tap/touch to load next question (mobile)
+function handleTapToNextQuestion(event) {
+    if (gameState.waitingForNext && !event.target.closest('button')) {
         gameState.waitingForNext = false;
         document.getElementById('answerInput').disabled = false;
         loadNextQuestion();
