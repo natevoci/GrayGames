@@ -1903,7 +1903,7 @@ function advanceLevel() {
         
         // Increase speed slider by 0.5
         const speedSlider = document.getElementById('speedSlider');
-        let newSpeed = Math.min(parseFloat(speedSlider.value) + 0.5, 5);
+        let newSpeed = Math.min(parseFloat(speedSlider.value) + 2, 5);
         speedSlider.value = newSpeed;
         gameState.speedMultiplier = newSpeed;
         updateSpeedDisplay();
