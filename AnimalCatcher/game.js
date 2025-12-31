@@ -1440,55 +1440,63 @@ class Animal {
 
     drawRabbit() {
         const s = this.config.size;
-        // Body
-        ctx.fillStyle = '#FFF8DC';
+        // Calculate hop stretch - compress when landing, stretch when airborne
+        const hopCycle = Math.sin(this.hopPhase);
+        const hopStretch = Math.max(0, hopCycle); // 0 to 1 during hop arc
+        const bodyStretch = 1 + hopStretch * 0.3; // Stretch body during hop
+        const bodyCompress = 1 - hopStretch * 0.2; // Compress vertically
+        
+        // Body (side view, horizontal)
+        ctx.fillStyle = '#F5DEB3';
         ctx.beginPath();
-        ctx.ellipse(0, s * 0.05, s * 0.45, s * 0.4, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, s * 0.1, s * 0.5 * bodyStretch, s * 0.35 * bodyCompress, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Head
-        ctx.fillStyle = '#FFF8DC';
+        // Head (side view) - moves with body stretch
+        ctx.fillStyle = '#F5DEB3';
         ctx.beginPath();
-        ctx.arc(0, -s * 0.35, s * 0.32, 0, Math.PI * 2);
+        ctx.arc(s * 0.35 * bodyStretch, -s * 0.15, s * 0.28, 0, Math.PI * 2);
         ctx.fill();
         
-        // Long ears
-        ctx.fillStyle = '#FFF8DC';
+        // Ear (single ear visible in side view, standing up)
+        ctx.fillStyle = '#F5DEB3';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.15, -s * 0.65, s * 0.12, s * 0.35, -0.1, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(s * 0.15, -s * 0.65, s * 0.12, s * 0.35, 0.1, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.25 * bodyStretch, -s * 0.55 - hopStretch * 0.15, s * 0.1, s * 0.38 + hopStretch * 0.1, -0.15, 0, Math.PI * 2);
         ctx.fill();
         
         // Inner ear
         ctx.fillStyle = '#FFB6C1';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.15, -s * 0.65, s * 0.06, s * 0.25, -0.1, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(s * 0.15, -s * 0.65, s * 0.06, s * 0.25, 0.1, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.25 * bodyStretch, -s * 0.55 - hopStretch * 0.15, s * 0.05, s * 0.28 + hopStretch * 0.08, -0.15, 0, Math.PI * 2);
         ctx.fill();
         
-        // Eyes
+        // Eye (side view - single eye visible)
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(-s * 0.12, -s * 0.35, s * 0.08, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(s * 0.12, -s * 0.35, s * 0.08, 0, Math.PI * 2);
+        ctx.arc(s * 0.45 * bodyStretch, -s * 0.2, s * 0.08, 0, Math.PI * 2);
         ctx.fill();
         
-        // Nose
+        // Nose (side view)
         ctx.fillStyle = '#FFB6C1';
         ctx.beginPath();
-        ctx.arc(0, -s * 0.15, s * 0.08, 0, Math.PI * 2);
+        ctx.arc(s * 0.5 * bodyStretch, -s * 0.05, s * 0.07, 0, Math.PI * 2);
         ctx.fill();
         
-        // Tail (cotton)
+        // Front leg (moves apart and stretches when hopping)
+        ctx.fillStyle = '#E6C8A0';
+        ctx.beginPath();
+        ctx.ellipse(s * 0.2 * bodyStretch + hopStretch * 0.15, s * 0.38 + hopStretch * 0.2, s * 0.1, s * 0.18 * (1 + hopStretch * 0.4), 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Back leg (powerful, stretched and spreads when hopping)
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.25 * bodyStretch - hopStretch * 0.15, s * 0.38 + hopStretch * 0.25, s * 0.12, s * 0.2 * (1 + hopStretch * 0.5), 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Tail/cotton (visible on side)
         ctx.fillStyle = '#FFF8DC';
         ctx.beginPath();
-        ctx.arc(-s * 0.4, s * 0.35, s * 0.15, 0, Math.PI * 2);
+        ctx.arc(-s * 0.45 * bodyStretch, s * 0.2, s * 0.2, 0, Math.PI * 2);
         ctx.fill();
     }
 
