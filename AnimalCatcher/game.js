@@ -1690,11 +1690,14 @@ document.addEventListener('touchstart', (e) => {
     // AND at least 0.5 seconds have passed since level completed
     else if (wasLevelCompleteAtStart && !gameState.levelCompleteInputReceived) {
         const timeSinceLevelComplete = Date.now() - gameState.levelCompleteTime;
-        if (timeSinceLevelComplete >= 1500) {
+        console.log('TOUCHSTART: Level was complete at start, time since:', timeSinceLevelComplete, 'ms');
+        if (timeSinceLevelComplete >= 200) {
+            console.log('TOUCHSTART: Timeout satisfied, setting levelCompleteInputReceived=true');
             gameState.levelCompleteInputReceived = true;
         }
     } else if (e.target === canvas) {
         // Only update net position if tap is on the canvas itself
+        console.log('TOUCHSTART: Capturing animals');
         const rect = canvas.getBoundingClientRect();
         gameState.netX = e.touches[0].clientX - rect.left;
         gameState.netY = e.touches[0].clientY - rect.top;
@@ -1717,6 +1720,7 @@ document.addEventListener('touchend', (e) => {
     }
     // Advance level if new input was received
     else if (gameState.levelComplete && gameState.levelCompleteInputReceived) {
+        console.log('TOUCHEND: Calling advanceLevel()');
         advanceLevel();
     }
 }, { passive: true });
@@ -1761,7 +1765,12 @@ document.addEventListener('mousedown', () => {
     }
     // Handle level complete
     else if (gameState.levelComplete && !gameState.levelCompleteInputReceived) {
-        gameState.levelCompleteInputReceived = true;
+        const timeSinceLevelComplete = Date.now() - gameState.levelCompleteTime;
+        console.log('MOUSEDOWN: Time since level complete:', timeSinceLevelComplete, 'ms');
+        if (timeSinceLevelComplete >= 200) {
+            console.log('MOUSEDOWN: Timeout satisfied, setting levelCompleteInputReceived=true');
+            gameState.levelCompleteInputReceived = true;
+        }
     } else {
         gameState.isMouseDown = true;
     }
@@ -1776,6 +1785,7 @@ document.addEventListener('mouseup', () => {
     }
     // Advance level if new input was received
     else if (gameState.levelComplete && gameState.levelCompleteInputReceived) {
+        console.log('MOUSEUP: Calling advanceLevel()');
         advanceLevel();
     }
 });
@@ -1790,7 +1800,12 @@ document.addEventListener('keydown', (e) => {
         }
         // Handle level complete
         else if (gameState.levelComplete && !gameState.levelCompleteInputReceived) {
-            gameState.levelCompleteInputReceived = true;
+            const timeSinceLevelComplete = Date.now() - gameState.levelCompleteTime;
+            console.log('KEYDOWN: Time since level complete:', timeSinceLevelComplete, 'ms');
+            if (timeSinceLevelComplete >= 200) {
+                console.log('KEYDOWN: Timeout satisfied, setting levelCompleteInputReceived=true');
+                gameState.levelCompleteInputReceived = true;
+            }
         } else {
             gameState.isSpacePressed = true;
         }
@@ -1828,6 +1843,7 @@ document.addEventListener('click', (e) => {
         }
         // Advance level if popup is shown and new input was received
         else if (gameState.levelComplete && gameState.levelCompleteInputReceived) {
+            console.log('CLICK: Calling advanceLevel() - input already received');
             advanceLevel();
         }
     }
@@ -1835,6 +1851,7 @@ document.addEventListener('click', (e) => {
 
 // Level up
 function levelUp() {
+    console.log('levelUp() called');
     gameState.levelComplete = true;
     gameState.levelCompleteInputReceived = false;
     gameState.levelCompleteTime = Date.now();
@@ -1885,6 +1902,7 @@ function hideStartupPopup() {
 
 // Advance to next level
 function advanceLevel() {
+    console.log('advanceLevel() called - Stack trace:', new Error().stack);
     hideLevelCompletePopup();
     gameState.levelComplete = false;
     gameState.isPaused = false;
