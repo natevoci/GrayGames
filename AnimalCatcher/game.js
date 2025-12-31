@@ -198,6 +198,7 @@ let gameState = {
     isTouching: false,
     levelComplete: false,
     levelCompleteInputReceived: false,
+    levelCompleteTime: 0,
     gameStarted: false,
     startupInputReceived: false,
     allAnimalsMode: false,
@@ -1686,8 +1687,12 @@ document.addEventListener('touchstart', (e) => {
         gameState.startupInputReceived = true;
     }
     // Handle level complete - only if it was ALREADY complete before this touch started
+    // AND at least 0.5 seconds have passed since level completed
     else if (wasLevelCompleteAtStart && !gameState.levelCompleteInputReceived) {
-        gameState.levelCompleteInputReceived = true;
+        const timeSinceLevelComplete = Date.now() - gameState.levelCompleteTime;
+        if (timeSinceLevelComplete >= 500) {
+            gameState.levelCompleteInputReceived = true;
+        }
     } else if (e.target === canvas) {
         // Only update net position if tap is on the canvas itself
         const rect = canvas.getBoundingClientRect();
@@ -1832,6 +1837,7 @@ document.addEventListener('click', (e) => {
 function levelUp() {
     gameState.levelComplete = true;
     gameState.levelCompleteInputReceived = false;
+    gameState.levelCompleteTime = Date.now();
     gameState.isPaused = true;
     
     // Show popup
