@@ -999,11 +999,26 @@ class Animal {
 
     drawCat() {
         const s = this.config.size;
+        const legWalk = Math.sin(this.animationTime * 4) * 5; // Fast scurrying motion
+        
         // Body
         ctx.fillStyle = '#FF8C00';
         ctx.beginPath();
         ctx.ellipse(0, s * 0.05, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Front left leg - scurrying
+        ctx.fillStyle = '#CC6600';
+        ctx.fillRect(-s * 0.3 + legWalk, s * 0.25, s * 0.12, 10);
+        
+        // Front right leg - scurrying (opposite phase)
+        ctx.fillRect(s * 0.15 - legWalk, s * 0.25, s * 0.12, 10);
+        
+        // Back left leg - scurrying
+        ctx.fillRect(-s * 0.25 + legWalk, s * 0.38, s * 0.12, 10);
+        
+        // Back right leg - scurrying (opposite phase)
+        ctx.fillRect(s * 0.2 - legWalk, s * 0.38, s * 0.12, 10);
         
         // Head
         ctx.fillStyle = '#FF8C00';
