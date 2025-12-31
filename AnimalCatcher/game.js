@@ -1701,7 +1701,15 @@ document.addEventListener('touchstart', (e) => {
     // Handle level complete
     else if (gameState.levelComplete && !gameState.levelCompleteInputReceived) {
         gameState.levelCompleteInputReceived = true;
-    } else {
+    } else if (e.target === canvas) {
+        // Only update net position if tap is on the canvas itself
+        const rect = canvas.getBoundingClientRect();
+        gameState.netX = e.touches[0].clientX - rect.left;
+        gameState.netY = e.touches[0].clientY - rect.top;
+
+        gameState.netX = Math.max(CONFIG.NET_SIZE / 2, Math.min(gameState.netX, CONFIG.CANVAS_WIDTH - CONFIG.NET_SIZE / 2));
+        gameState.netY = Math.max(CONFIG.NET_SIZE / 2, Math.min(gameState.netY, CONFIG.CANVAS_HEIGHT - CONFIG.NET_SIZE / 2));
+        
         gameState.isTouching = true;
         catchAnimals();
     }
