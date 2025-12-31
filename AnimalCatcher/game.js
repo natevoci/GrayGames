@@ -193,6 +193,7 @@ let gameState = {
     isAnimating: false,
     isPaused: false,
     speedMultiplier: 1,
+    animalsPerLevelMultiplier: 1,
     isMouseDown: false,
     isSpacePressed: false,
     isTouching: false,
@@ -1621,9 +1622,10 @@ function update() {
         gameState.animals[i].wrapAround();
     }
 
-    // Spawn new animals only if we haven't reached 20 yet
+    // Spawn new animals only if we haven't reached the target count yet
     // Don't spawn additional animals in all animals mode
-    if (!gameState.allAnimalsMode && gameState.totalAnimalsSpawned < CONFIG.ANIMALS_PER_LEVEL) {
+    const targetAnimalsPerLevel = CONFIG.ANIMALS_PER_LEVEL * gameState.animalsPerLevelMultiplier;
+    if (!gameState.allAnimalsMode && gameState.totalAnimalsSpawned < targetAnimalsPerLevel) {
         if (Math.random() < CONFIG.SPAWN_RATE_BASE + (gameState.level - 1) * CONFIG.SPAWN_RATE_INCREMENT) {
             gameState.animals.push(new Animal(gameState.currentAnimalType));
             gameState.totalAnimalsSpawned++;
@@ -1750,7 +1752,8 @@ function catchAnimals() {
     }
 
     // Check for level up only once per call
-    if (animalsCaught && gameState.caughtThisLevel >= CONFIG.ANIMALS_PER_LEVEL) {
+    const targetAnimalsPerLevel = CONFIG.ANIMALS_PER_LEVEL * gameState.animalsPerLevelMultiplier;
+    if (animalsCaught && gameState.caughtThisLevel >= targetAnimalsPerLevel) {
         levelUp();
     }
 
@@ -1918,19 +1921,22 @@ function advanceLevel() {
         // Play level up sound
         playSound('levelUpSound');
     } else {
-        // Completed all levels: reset to snails and increase speed
+        // Completed all levels: reset to snails and increase speed and animal count
         gameState.level = 1;
         gameState.caughtThisLevel = 0;
         gameState.totalAnimalsSpawned = 0;
         gameState.currentAnimalType = ANIMAL_KEYS[0]; // Back to snails
         gameState.animals = [];
         
-        // Increase speed slider by 0.5
+        // Increase speed slider by 1.0
         const speedSlider = document.getElementById('speedSlider');
-        let newSpeed = Math.min(parseFloat(speedSlider.value) + 2, 5);
+        let newSpeed = Math.min(parseFloat(speedSlider.value) + 1, 5);
         speedSlider.value = newSpeed;
         gameState.speedMultiplier = newSpeed;
         updateSpeedDisplay();
+        
+        // Double the number of animals per level
+        gameState.animalsPerLevelMultiplier *= 2;
         
         playSound('levelUpSound');
     }
@@ -1952,7 +1958,8 @@ function playSound(soundId) {
 // Update UI display
 function updateUI() {
     document.getElementById('levelDisplay').textContent = gameState.level;
-    document.getElementById('caughtDisplay').textContent = `${gameState.caughtThisLevel}/${CONFIG.ANIMALS_PER_LEVEL}`;
+    const targetAnimalsPerLevel = CONFIG.ANIMALS_PER_LEVEL * gameState.animalsPerLevelMultiplier;
+    document.getElementById('caughtDisplay').textContent = `${gameState.caughtThisLevel}/${targetAnimalsPerLevel}`;
     document.getElementById('scoreDisplay').textContent = gameState.score;
     document.getElementById('animalNameDisplay').textContent = ANIMAL_TYPES[gameState.currentAnimalType].name;
     document.getElementById('speedDisplay').textContent = gameState.speedMultiplier.toFixed(2) + 'x';
