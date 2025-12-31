@@ -36,55 +36,13 @@ const CONFIG = {
     CANVAS_HEIGHT: canvas.offsetHeight,
     NET_SIZE: 80,
     ANIMALS_PER_LEVEL: 20,
-    SPAWN_RATE_BASE: 0.04,
+    SPAWN_RATE_BASE: 0.02,
     SPAWN_RATE_INCREMENT: 0.01,
-    BASE_SPEED_MULTIPLIER: 0.5
+    BASE_SPEED_MULTIPLIER: 2
 };
 
 // Animal definitions - each with unique behavior
 const ANIMAL_TYPES = {
-    mice: {
-        name: 'Mice',
-        color: '#8B4513',
-        size: 35,
-        speed: 2,
-        points: 10,
-        emoji: '🐭'
-    },
-    ladybugs: {
-        name: 'Ladybugs',
-        color: '#FF0000',
-        size: 32,
-        speed: 1.6,
-        points: 13,
-        emoji: '🐞'
-    },
-    butterflies: {
-        name: 'Butterflies',
-        color: '#FF69B4',
-        size: 40,
-        speed: 1.5,
-        points: 15,
-        emoji: '🦋',
-        wobble: true
-    },
-    dragonflies: {
-        name: 'Dragonflies',
-        color: '#00FF00',
-        size: 38,
-        speed: 2.4,
-        points: 17,
-        emoji: '🪰',
-        wobble: true
-    },
-    cats: {
-        name: 'Cats',
-        color: '#FF8C00',
-        size: 45,
-        speed: 1.8,
-        points: 20,
-        emoji: '🐱'
-    },
     snails: {
         name: 'Snails',
         color: '#A0826D',
@@ -93,13 +51,63 @@ const ANIMAL_TYPES = {
         points: 11,
         emoji: '🐌'
     },
-    dogs: {
-        name: 'Dogs',
-        color: '#DAA520',
-        size: 48,
-        speed: 2.2,
-        points: 25,
-        emoji: '🐕'
+    koalas: {
+        name: 'Koalas',
+        color: '#808080',
+        size: 46,
+        speed: 1.1,
+        points: 21,
+        emoji: '🐨'
+    },
+    gnomes: {
+        name: 'Gnomes',
+        color: '#228B22',
+        size: 44,
+        speed: 1.2,
+        points: 16,
+        emoji: '🧙'
+    },
+    wombats: {
+        name: 'Wombats',
+        color: '#654321',
+        size: 44,
+        speed: 1.2,
+        points: 19,
+        emoji: '🐾'
+    },
+    fairies: {
+        name: 'Fairies',
+        color: '#FFD700',
+        size: 36,
+        speed: 1.3,
+        points: 22,
+        emoji: '🧚',
+        wobble: true
+    },
+    echidnas: {
+        name: 'Echidnas',
+        color: '#5C4033',
+        size: 40,
+        speed: 1.3,
+        points: 17,
+        emoji: '🦔'
+    },
+    butterflies: {
+        name: 'Butterflies',
+        color: '#FF69B4',
+        size: 40,
+        speed: 1.3,
+        points: 15,
+        emoji: '🦋',
+        wobble: true
+    },
+    crabs: {
+        name: 'Crabs',
+        color: '#FF4500',
+        size: 42,
+        speed: 1.4,
+        points: 18,
+        emoji: '🦀'
     },
     fireflies: {
         name: 'Fireflies',
@@ -119,38 +127,37 @@ const ANIMAL_TYPES = {
         emoji: '🐟',
         wobble: true
     },
-    koalas: {
-        name: 'Koalas',
-        color: '#808080',
-        size: 46,
-        speed: 1.1,
-        points: 21,
-        emoji: '🐨'
+    ladybugs: {
+        name: 'Ladybugs',
+        color: '#FF0000',
+        size: 32,
+        speed: 1.6,
+        points: 13,
+        emoji: '🐞'
     },
-    crabs: {
-        name: 'Crabs',
-        color: '#FF4500',
+    kookaburras: {
+        name: 'Kookaburras',
+        color: '#8B6F47',
         size: 42,
-        speed: 1.4,
+        speed: 1.7,
         points: 18,
-        emoji: '🦀'
+        emoji: '🦅'
     },
-    wombats: {
-        name: 'Wombats',
-        color: '#654321',
-        size: 44,
-        speed: 1.2,
-        points: 19,
-        emoji: '🐾'
+    cats: {
+        name: 'Cats',
+        color: '#FF8C00',
+        size: 45,
+        speed: 1.8,
+        points: 20,
+        emoji: '🐱'
     },
-    fairies: {
-        name: 'Fairies',
-        color: '#FFD700',
-        size: 36,
-        speed: 1.3,
-        points: 22,
-        emoji: '🧚',
-        wobble: true
+    mice: {
+        name: 'Mice',
+        color: '#8B4513',
+        size: 35,
+        speed: 2,
+        points: 10,
+        emoji: '🐭'
     },
     sugarGliders: {
         name: 'Sugar Gliders',
@@ -161,30 +168,26 @@ const ANIMAL_TYPES = {
         emoji: '🦘',
         wobble: true
     },
-    gnomes: {
-        name: 'Gnomes',
-        color: '#228B22',
-        size: 44,
-        speed: 1.2,
-        points: 16,
-        emoji: '🧙'
+    dogs: {
+        name: 'Dogs',
+        color: '#DAA520',
+        size: 48,
+        speed: 2.2,
+        points: 25,
+        emoji: '🐕'
     },
-    kookaburras: {
-        name: 'Kookaburras',
-        color: '#8B6F47',
-        size: 42,
-        speed: 1.7,
-        points: 18,
-        emoji: '🦅'
-    },
-    echidnas: {
-        name: 'Echidnas',
-        color: '#5C4033',
-        size: 40,
-        speed: 1.3,
+    dragonflies: {
+        name: 'Dragonflies',
+        color: '#00FF00',
+        size: 38,
+        speed: 2.4,
         points: 17,
-        emoji: '🦔'
+        emoji: '🪰',
+        wobble: true
     },
+
+
+
     frogs: {
         name: 'Frogs',
         color: '#32CD32',
@@ -211,7 +214,7 @@ let gameState = {
     level: 1,
     score: 0,
     caughtThisLevel: 0,
-    currentAnimalType: 'mice',
+    currentAnimalType: 'snails',
     animals: [],
     totalAnimalsSpawned: 0,
     netX: CONFIG.CANVAS_WIDTH / 2,
@@ -266,7 +269,7 @@ class Animal {
         
         // Hopping animation for frogs and rabbits
         if (this.type === 'frogs' || this.type === 'rabbits') {
-            const hopHeight = this.config.size * 0.4;
+            const hopHeight = this.type === 'frogs' ? this.config.size * 1.6 : this.config.size * 0.4;
             const hopCycle = Math.sin(this.hopPhase);
             if (hopCycle > 0) {
                 this.y = this.baseY - hopHeight * Math.sin(this.hopPhase % Math.PI);
@@ -611,45 +614,45 @@ class Animal {
         // Body/foot - lower, moving
         ctx.fillStyle = '#D2B48C';
         ctx.beginPath();
-        ctx.ellipse(s * 0.05 + bodyWave, s * 0.15, s * 0.32, s * 0.28, 0, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.00 + bodyWave, s * 0.15, s * 0.62, s * 0.28, 0, 0, Math.PI * 2);
         ctx.fill();
         
         // Head - at front of body
         ctx.fillStyle = '#A0826D';
         ctx.beginPath();
-        ctx.arc(s * 0.3 + bodyWave, s * 0.1, s * 0.18, 0, Math.PI * 2);
+        ctx.arc(s * 0.5 + bodyWave, s * 0.0, s * 0.18, 0, Math.PI * 2);
         ctx.fill();
         
         // Left eye stalk - curving upward
         ctx.strokeStyle = '#A0826D';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(s * 0.25 + bodyWave, s * 0.0);
-        ctx.quadraticCurveTo(s * 0.2 + bodyWave + eyeStalk1, -s * 0.1, s * 0.15 + bodyWave + eyeStalk1, -s * 0.25);
+        ctx.moveTo(s * 0.45 + bodyWave, s * 0.0);
+        ctx.quadraticCurveTo(s * 0.2 + bodyWave + eyeStalk1, -s * 0.2, s * 0.15 + bodyWave + eyeStalk1, -s * 0.25);
         ctx.stroke();
         
         // Right eye stalk - curving upward
         ctx.beginPath();
-        ctx.moveTo(s * 0.35 + bodyWave, s * 0.0);
-        ctx.quadraticCurveTo(s * 0.4 + bodyWave + eyeStalk2, -s * 0.1, s * 0.45 + bodyWave + eyeStalk2, -s * 0.25);
+        ctx.moveTo(s * 0.45 + bodyWave, s * 0.0);
+        ctx.quadraticCurveTo(s * 0.4 + bodyWave + eyeStalk2, -s * 0.2, s * 0.45 + bodyWave + eyeStalk2, -s * 0.25);
         ctx.stroke();
         
         // Left eye
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(s * 0.15 + bodyWave + eyeStalk1, -s * 0.25, s * 0.05, 0, Math.PI * 2);
+        ctx.arc(s * 0.35 + bodyWave + eyeStalk1, -s * 0.35, s * 0.05, 0, Math.PI * 2);
         ctx.fill();
         
         // Right eye
         ctx.beginPath();
-        ctx.arc(s * 0.45 + bodyWave + eyeStalk2, -s * 0.25, s * 0.05, 0, Math.PI * 2);
+        ctx.arc(s * 0.65 + bodyWave + eyeStalk2, -s * 0.35, s * 0.05, 0, Math.PI * 2);
         ctx.fill();
         
         // Mouth
         ctx.strokeStyle = '#8B6F47';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(s * 0.3 + bodyWave, s * 0.2, s * 0.08, 0, Math.PI);
+        ctx.arc(s * 0.5 + bodyWave, s * 0.1, s * 0.08, 0, Math.PI);
         ctx.stroke();
     }
 
@@ -1913,8 +1916,8 @@ function updatePlayButton() {
 // Initialize and start game
 function init() {
     // Load background images
-    const animalTypes = ['mice', 'ladybugs', 'butterflies', 'dragonflies', 'cats', 'snails', 'dogs', 'fireflies', 'fish', 'koalas', 'crabs', 'wombats', 'fairies', 'sugarGliders', 'gnomes', 'kookaburras', 'echidnas', 'frogs', 'rabbits'];
-    
+    const animalTypes = Object.keys(ANIMAL_TYPES);
+
     animalTypes.forEach(animalType => {
         const img = new Image();
         const fileName = animalType.charAt(0).toUpperCase() + animalType.slice(1);
