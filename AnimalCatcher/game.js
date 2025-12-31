@@ -189,7 +189,7 @@ const ANIMAL_TYPES = {
         name: 'Frogs',
         color: '#32CD32',
         size: 40,
-        speed: 2,
+        speed: 0,
         points: 14,
         emoji: '🐸'
     },
@@ -270,6 +270,12 @@ class Animal {
             const hopCycle = Math.sin(this.hopPhase);
             if (hopCycle > 0) {
                 this.y = this.baseY - hopHeight * Math.sin(this.hopPhase % Math.PI);
+                // Frogs move forward during hop - proportional to hop height
+                if (this.type === 'frogs') {
+                    const hopProgress = Math.sin(this.hopPhase % Math.PI);
+                    const hopDistance = 8 * this.direction * CONFIG.BASE_SPEED_MULTIPLIER * gameState.speedMultiplier;
+                    this.x += hopDistance * hopProgress;
+                }
             } else {
                 this.y = this.baseY;
             }
