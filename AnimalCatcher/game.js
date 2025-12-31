@@ -1906,10 +1906,20 @@ function advanceLevel() {
         // Play level up sound
         playSound('levelUpSound');
     } else {
-        // Already at max level, reset for continued play
+        // Completed all levels: reset to snails and increase speed
+        gameState.level = 1;
         gameState.caughtThisLevel = 0;
         gameState.totalAnimalsSpawned = 0;
+        gameState.currentAnimalType = ANIMAL_KEYS[0]; // Back to snails
         gameState.animals = [];
+        
+        // Increase speed slider by 0.5
+        const speedSlider = document.getElementById('speedSlider');
+        let newSpeed = Math.min(parseFloat(speedSlider.value) + 0.5, 5);
+        speedSlider.value = newSpeed;
+        gameState.speedMultiplier = newSpeed;
+        updateSpeedDisplay();
+        
         playSound('levelUpSound');
     }
     updateUI();
@@ -1963,26 +1973,40 @@ function gameLoop() {
 
 // Control event handlers
 function setupControls() {
-    const playBtn = document.getElementById('playBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
     const speedSlider = document.getElementById('speedSlider');
 
-    // Play button - begin the game or resume from pause
-    playBtn.addEventListener('click', () => {
+    // Play/Pause button - toggles between start, pause, and resume
+    playPauseBtn.addEventListener('click', () => {
         if (!gameState.gameStarted) {
             // Starting new game
             gameState.gameStarted = true;
             gameState.isAnimating = true;
-        } else {
+        } else if (gameState.isPaused) {
             // Resuming from pause
             gameState.isPaused = false;
+        } else {
+            // Pause the game
+            gameState.isPaused = true;
         }
         updatePlayButton();
     });
 
-    // Pause button - pause the game
-    pauseBtn.addEventListener('click', () => {
-        gameState.isPaused = true;
+    // Reset button - resets the game
+    resetBtn.addEventListener('click', () => {
+        gameState.gameStarted = false;
+        gameState.isAnimating = false;
+        gameState.isPaused = false;
+        gameState.level = 1;
+        gameState.score = 0;
+        gameState.caughtThisLevel = 0;
+        gameState.totalAnimalsSpawned = 0;
+        gameState.currentAnimalType = ANIMAL_KEYS[0];
+        gameState.animals = [];
+        gameState.speedMultiplier = 1;
+        document.getElementById('speedSlider').value = 1;
+        updateUI();
         updatePlayButton();
     });
 
@@ -1995,23 +2019,17 @@ function setupControls() {
 
 // Update play button state
 function updatePlayButton() {
-    const playBtn = document.getElementById('playBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
+    const playPauseBtn = document.getElementById('playPauseBtn');
     
     if (!gameState.gameStarted) {
         // Game hasn't started yet
-        playBtn.textContent = 'Start';
-        playBtn.disabled = false;
-        pauseBtn.disabled = true;
+        playPauseBtn.textContent = 'Start';
     } else if (gameState.isPaused) {
         // Game is paused
-        playBtn.textContent = 'Resume';
-        playBtn.disabled = false;
-        pauseBtn.disabled = true;
+        playPauseBtn.textContent = 'Resume';
     } else {
         // Game is playing
-        playBtn.disabled = true;
-        pauseBtn.disabled = false;
+        playPauseBtn.textContent = 'Pause';
     }
 }
 
