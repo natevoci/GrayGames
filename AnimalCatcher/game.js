@@ -582,49 +582,69 @@ class Animal {
 
     drawSnail() {
         const s = this.config.size;
-        const bodyUndulate = Math.sin(this.animationTime * 0.7) * 2;
-        const eyeStalkMove = Math.sin(this.animationTime * 1.2) * 0.1;
+        const bodyWave = Math.sin(this.animationTime * 0.5) * 1.5;
+        const eyeStalk1 = Math.sin(this.animationTime * 1.3) * 0.08;
+        const eyeStalk2 = Math.sin(this.animationTime * 1.1 + 0.5) * 0.08;
         
-        // Shell - spiral
+        // Shell - on the back, spiral shape
+        ctx.fillStyle = '#8B7355';
+        ctx.beginPath();
+        ctx.arc(-s * 0.2, -s * 0.25, s * 0.35, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Shell highlight and spiral detail
+        ctx.strokeStyle = '#A0826D';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(-s * 0.2, -s * 0.25, s * 0.28, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(-s * 0.2, -s * 0.25, s * 0.18, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // Body/foot - lower, moving
+        ctx.fillStyle = '#D2B48C';
+        ctx.beginPath();
+        ctx.ellipse(s * 0.05 + bodyWave, s * 0.15, s * 0.32, s * 0.28, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Head - at front of body
         ctx.fillStyle = '#A0826D';
         ctx.beginPath();
-        ctx.arc(-s * 0.15, -s * 0.1, s * 0.4, 0, Math.PI * 2);
+        ctx.arc(s * 0.3 + bodyWave, s * 0.1, s * 0.18, 0, Math.PI * 2);
         ctx.fill();
         
-        // Shell spiral lines
-        ctx.strokeStyle = '#8B6F47';
+        // Left eye stalk - curving upward
+        ctx.strokeStyle = '#A0826D';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.arc(-s * 0.15, -s * 0.1, s * 0.3, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(-s * 0.15, -s * 0.1, s * 0.2, 0, Math.PI * 2);
+        ctx.moveTo(s * 0.25 + bodyWave, s * 0.0);
+        ctx.quadraticCurveTo(s * 0.2 + bodyWave + eyeStalk1, -s * 0.1, s * 0.15 + bodyWave + eyeStalk1, -s * 0.25);
         ctx.stroke();
         
-        // Body - undulating
-        ctx.fillStyle = '#CD853F';
+        // Right eye stalk - curving upward
         ctx.beginPath();
-        ctx.ellipse(s * 0.1 + bodyUndulate, s * 0.1, s * 0.3, s * 0.35, 0, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Head - following body
-        ctx.fillStyle = '#CD853F';
-        ctx.beginPath();
-        ctx.arc(s * 0.15 + bodyUndulate, -s * 0.25, s * 0.2, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Eyes on stalks - bobbing
-        ctx.strokeStyle = '#CD853F';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(s * 0.1 + bodyUndulate, -s * 0.35);
-        ctx.quadraticCurveTo(s * 0.05 + bodyUndulate * 0.5, -s * 0.42, s * 0.05 + bodyUndulate * 0.5 + eyeStalkMove, -s * 0.5);
+        ctx.moveTo(s * 0.35 + bodyWave, s * 0.0);
+        ctx.quadraticCurveTo(s * 0.4 + bodyWave + eyeStalk2, -s * 0.1, s * 0.45 + bodyWave + eyeStalk2, -s * 0.25);
         ctx.stroke();
         
+        // Left eye
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(s * 0.05 + bodyUndulate * 0.5 + eyeStalkMove, -s * 0.5, s * 0.06, 0, Math.PI * 2);
+        ctx.arc(s * 0.15 + bodyWave + eyeStalk1, -s * 0.25, s * 0.05, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Right eye
+        ctx.beginPath();
+        ctx.arc(s * 0.45 + bodyWave + eyeStalk2, -s * 0.25, s * 0.05, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Mouth
+        ctx.strokeStyle = '#8B6F47';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(s * 0.3 + bodyWave, s * 0.2, s * 0.08, 0, Math.PI);
+        ctx.stroke();
     }
 
     drawFirefly() {
