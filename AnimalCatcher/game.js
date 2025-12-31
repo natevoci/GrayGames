@@ -185,7 +185,7 @@ let gameState = {
     level: 1,
     score: 0,
     caughtThisLevel: 0,
-    currentAnimalType: 'fish',
+    currentAnimalType: 'snails',
     animals: [],
     totalAnimalsSpawned: 0,
     netX: CONFIG.CANVAS_WIDTH / 2,
