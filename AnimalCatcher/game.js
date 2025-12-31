@@ -415,87 +415,74 @@ class Animal {
 
     drawLadybug() {
         const s = this.config.size;
-        const legWalk = Math.sin(this.animationTime) * 2.5;
+        const legWalk = Math.sin(this.animationTime * 4) * 3; // Horizontal scurrying
         
-        // Body
-        ctx.fillStyle = '#FF0000';
+        // Wing case (elytra) - side profile
+        ctx.fillStyle = '#DC143C';
         ctx.beginPath();
-        ctx.ellipse(0, 0, s * 0.5, s * 0.45, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, s * 0.55, s * 0.5, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Head
-        ctx.fillStyle = '#FF0000';
+        // Center line (seam between wing cases)
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(0, -s * 0.4, s * 0.25, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.moveTo(0, -s * 0.45);
+        ctx.lineTo(0, s * 0.45);
+        ctx.stroke();
         
-        // Eyes
-        ctx.fillStyle = 'white';
-        ctx.beginPath();
-        ctx.arc(-s * 0.08, -s * 0.45, s * 0.07, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(s * 0.08, -s * 0.45, s * 0.07, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Black pupils
+        // Black spots on wing case - 3 visible in profile
         ctx.fillStyle = 'black';
         ctx.beginPath();
-        ctx.arc(-s * 0.08, -s * 0.45, s * 0.04, 0, Math.PI * 2);
+        ctx.arc(-s * 0.2, -s * 0.15, s * 0.09, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
-        ctx.arc(s * 0.08, -s * 0.45, s * 0.04, 0, Math.PI * 2);
+        ctx.arc(-s * 0.2, s * 0.15, s * 0.09, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s * 0.15, 0, s * 0.08, 0, Math.PI * 2);
         ctx.fill();
         
-        // Middle line
+        // Head (side view)
+        ctx.fillStyle = '#DC143C';
+        ctx.beginPath();
+        ctx.arc(s * 0.4, -s * 0.25, s * 0.22, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eye (single eye visible in side profile)
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(s * 0.48, -s * 0.28, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Pupil
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(s * 0.48, -s * 0.28, s * 0.04, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Antenna
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(0, -s * 0.2);
-        ctx.lineTo(0, s * 0.4);
+        ctx.moveTo(s * 0.35, -s * 0.4);
+        ctx.quadraticCurveTo(s * 0.55, -s * 0.5, s * 0.6, -s * 0.35);
         ctx.stroke();
         
-        // Black spots
-        ctx.fillStyle = 'black';
-        ctx.beginPath();
-        ctx.arc(-s * 0.25, -s * 0.1, s * 0.08, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(s * 0.25, -s * 0.1, s * 0.08, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(-s * 0.25, s * 0.1, s * 0.08, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(s * 0.25, s * 0.1, s * 0.08, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(0, s * 0.25, s * 0.07, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Front legs - walking
+        // Front leg - scurrying left/right
         ctx.fillStyle = '#333333';
         ctx.beginPath();
-        ctx.ellipse(-s * 0.35, -s * 0.15 + legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(s * 0.35, -s * 0.15 - legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.25 + legWalk, s * 0.35, s * 0.08, s * 0.14, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Middle legs - walking
+        // Middle leg - scurrying opposite
         ctx.beginPath();
-        ctx.ellipse(-s * 0.38, s * 0.05 - legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(s * 0.38, s * 0.05 + legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.ellipse(-s * 0.05 - legWalk, s * 0.4, s * 0.08, s * 0.14, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Back legs - walking
+        // Back leg - scurrying
         ctx.beginPath();
-        ctx.ellipse(-s * 0.35, s * 0.25 + legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(s * 0.35, s * 0.25 - legWalk, s * 0.08, s * 0.15, 0, 0, Math.PI * 2);
+        ctx.ellipse(-s * 0.35 + legWalk, s * 0.35, s * 0.08, s * 0.14, 0, 0, Math.PI * 2);
         ctx.fill();
     }
 
