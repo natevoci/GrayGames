@@ -1082,7 +1082,7 @@ class Animal {
 
     drawDog() {
         const s = this.config.size;
-        const legWalk = Math.sin(this.animationTime) * 4;
+        const legWalk = Math.sin(this.animationTime * 2) * 5; // Horizontal motion
         const tailWag = Math.sin(this.animationTime * 1.5) * 15;
         
         // Body
@@ -1091,10 +1091,18 @@ class Animal {
         ctx.ellipse(0, s * 0.1, s * 0.55, s * 0.48, 0, 0, Math.PI * 2);
         ctx.fill();
         
-        // Back legs
+        // Back left leg - scurrying left/right
         ctx.fillStyle = '#CD853F';
-        ctx.fillRect(-s * 0.35, legWalk + s * 0.25, s * 0.12, 12);
-        ctx.fillRect(s * 0.2, -legWalk + s * 0.25, s * 0.12, 12);
+        ctx.fillRect(-s * 0.35 + legWalk, s * 0.25, s * 0.12, 12);
+        
+        // Back right leg - scurrying left/right (opposite phase)
+        ctx.fillRect(s * 0.2 - legWalk, s * 0.25, s * 0.12, 12);
+        
+        // Front left leg - scurrying
+        ctx.fillRect(-s * 0.25 + legWalk, s * 0.35, s * 0.12, 12);
+        
+        // Front right leg - scurrying (opposite phase)
+        ctx.fillRect(s * 0.1 - legWalk, s * 0.35, s * 0.12, 12);
         
         // Head
         ctx.fillStyle = '#DAA520';
